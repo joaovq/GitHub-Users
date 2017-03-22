@@ -19,10 +19,12 @@ import android.util.Log;
 
 import com.githubusers.domain.executor.ThreadExecutor;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -53,21 +55,8 @@ class CloudUserDataStore implements UserDataStore {
     Observable<UserEntity> result = service.getUser(userId);
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
-            .subscribe(new DisposableObserver<UserEntity>() {
-              @Override
-              public void onNext(UserEntity userEntity) {
-                Log.e("CloudUserDataStore",userEntity.getLogin());
-              }
-
-              @Override
-              public void onError(Throwable t) {
-
-              }
-
-              @Override
-              public void onComplete() {
-
-              }
+            .subscribe(userEntity -> {
+                Log.e(CloudUserDataStore.class.getName(),userEntity.getLogin());
             });
     return result;
   }
