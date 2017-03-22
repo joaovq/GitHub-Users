@@ -6,9 +6,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.githubusers.presentation.R;
+import com.githubusers.presentation.events.ArgumentEvent;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -50,8 +53,10 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
   @Override
   public void onValidationSucceeded() {
     String userName = userNameEditText.getText().toString();
-    this.navigator.navigateToUserDetails(this, userName);
+    this.navigator.navigateToUserDetails(this);
+    EventBus.getDefault().postSticky(new ArgumentEvent(userName));
     clearEditTexts();
+
   }
 
   @Override

@@ -6,6 +6,7 @@ package com.githubusers.presentation.features.users;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.fernandocejas.arrow.strings.Strings;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.component.AutoLoadImageView;
 import com.githubusers.presentation.di.components.UserComponent;
-import com.githubusers.presentation.view.activity.MainActivity;
+import com.githubusers.presentation.events.ArgumentEvent;
 import com.githubusers.presentation.view.fragment.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -43,17 +49,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   @Bind(R.id.rl_retry)      RelativeLayout    retryLayout;
   @Bind(R.id.bt_retry)      Button            retryButton;
 
-  public static UserDetailsFragment forUser(String userId) {
-    final UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
-    final Bundle arguments = new Bundle();
-    arguments.putString(PARAM_USER_ID, userId);
-    userDetailsFragment.setArguments(arguments);
-    return userDetailsFragment;
-  }
-
-  public UserDetailsFragment() {
-    setRetainInstance(true);
-  }
+  private String currentUserId;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +69,6 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     this.userDetailsPresenter.setView(this);
-    if (savedInstanceState == null) {
-      this.loadUserDetails();
-    }
   }
 
   @Override
@@ -143,22 +136,19 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
     return getActivity().getApplicationContext();
   }
 
+  @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+  public void onMessageEvent(ArgumentEvent event) {
+    currentUserId = (String) event.getArgument();
+    this.loadUserDetails();
+  }
+
+
   /**
    * Load user details.
    */
   private void loadUserDetails() {
     if (this.userDetailsPresenter != null) {
-      if(currentUserId() != null)
-        this.userDetailsPresenter.initialize(currentUserId());
+        this.userDetailsPresenter.initialize(currentUserId);
     }
-  }
-
-  /**
-   * Get current user id from fragments arguments.
-   */
-  private String currentUserId() {
-    final Bundle arguments = getArguments();
-    Preconditions.checkNotNull(arguments, "Fragment arguments cannot be null");
-    return arguments.getString(PARAM_USER_ID);
   }
 }

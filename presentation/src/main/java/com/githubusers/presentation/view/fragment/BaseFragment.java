@@ -13,12 +13,26 @@ import android.widget.Toast;
 import com.githubusers.presentation.di.HasComponent;
 import com.mobsandgeeks.saripaar.ValidationError;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 /**
  * Base {@link android.app.Fragment} class for every fragment in this application.
  */
 public abstract class BaseFragment extends Fragment {
+  @Override
+  public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
+  }
+
   /**
    * Shows a {@link android.widget.Toast} message.
    *

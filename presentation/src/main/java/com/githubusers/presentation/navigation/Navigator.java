@@ -39,9 +39,9 @@ public class Navigator {
    *
    * @param context A Context needed to open the destiny activity.
    */
-  public void navigateToUserDetails(Context context, String userId) {
+  public void navigateToUserDetails(Context context) {
     if (context != null) {
-      Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context, userId);
+      Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context);
       context.startActivity(intentToLaunch);
     }
   }

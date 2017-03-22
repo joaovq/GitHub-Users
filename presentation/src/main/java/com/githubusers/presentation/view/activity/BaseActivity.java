@@ -11,6 +11,8 @@ import com.githubusers.presentation.di.components.ApplicationComponent;
 import com.githubusers.presentation.di.modules.ActivityModule;
 import com.githubusers.presentation.navigation.*;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 /**
