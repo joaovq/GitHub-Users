@@ -24,6 +24,8 @@ ext {
   okHttpVersion = '2.5.0'
   androidAnnotationsVersion = '21.0.3'
   arrowVersion = '1.0.0'
+  jobQueueVersion = '2.0.1'
+  retrofitVersion = '2.2.0'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -78,7 +80,9 @@ ext {
       rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
       javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}"
+      androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+      jobQueue:           "com.birbit:android-priority-jobqueue:${jobQueueVersion}",
+      retrofit:           "com.squareup.retrofit2:retrofit:${retrofitVersion}"
   ]
 
   dataTestDependencies = [
