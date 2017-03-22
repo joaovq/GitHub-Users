@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
+    enforceUniquePackageName = false
+
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
@@ -29,6 +31,7 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/rxjava.properties'
     }
 
     lintOptions {
@@ -72,8 +75,14 @@ dependencies {
     compile presentationDependencies.rxJava
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.appCompat
+    compile presentationDependencies.saripaar
+    compile presentationDependencies.retrofitRxAdapter
+    compile presentationDependencies.retrofitGsonConverter
 
     provided presentationDependencies.javaxAnnotation
+    provided presentationDependencies.lombok
+
+    apt presentationDependencies.lombok
 
     androidTestCompile presentationTestDependencies.mockito
     androidTestCompile presentationTestDependencies.dexmaker

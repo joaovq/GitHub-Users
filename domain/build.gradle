@@ -25,6 +25,8 @@ dependencies {
     compile domainDependencies.rxJava
     compile domainDependencies.arrow
 
+    provided domainDependencies.lombok
+
     testCompile domainTestDependencies.junit
     testCompile domainTestDependencies.mockito
     testCompile domainTestDependencies.assertj
