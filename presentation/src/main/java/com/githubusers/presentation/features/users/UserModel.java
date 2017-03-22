@@ -9,4 +9,7 @@ import lombok.Data;
 public class UserModel {
   private String login;
   private Integer public_repos;
+  private Integer followers;
+  private Integer following;
+  private String  avatarUrl;
 }

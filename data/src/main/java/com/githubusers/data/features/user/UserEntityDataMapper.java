@@ -46,6 +46,9 @@ public class UserEntityDataMapper {
       user = new User();
       user.setLogin(userEntity.getLogin());
       user.setRepos(userEntity.getPublicRepos());
+      user.setAvatarUrl(userEntity.getAvatarUrl());
+      user.setFollowers(userEntity.getFollowers());
+      user.setFollowing(userEntity.getFollowing());
     }
     return user;
   }

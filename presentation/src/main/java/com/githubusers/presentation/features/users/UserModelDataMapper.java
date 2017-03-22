@@ -47,6 +47,9 @@ public class UserModelDataMapper {
     final UserModel userModel = new UserModel();
     userModel.setLogin(user.getLogin());
     userModel.setPublic_repos(user.getRepos());
+    userModel.setFollowers(user.getFollowers());
+    userModel.setFollowing(user.getFollowing());
+    userModel.setAvatarUrl(user.getAvatarUrl());
 
     return userModel;
   }

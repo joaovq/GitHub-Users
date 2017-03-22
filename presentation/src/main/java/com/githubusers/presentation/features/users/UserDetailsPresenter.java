@@ -125,8 +125,7 @@ public class UserDetailsPresenter implements Presenter {
 
     @Override
     public void onNext(User user) {
-      Log.e(UserDetailsPresenter.class.getName(),user.getLogin());
-//      UserDetailsPresenter.this.showUserDetailsInView(user);
+      UserDetailsPresenter.this.showUserDetailsInView(user);
     }
   }
 }

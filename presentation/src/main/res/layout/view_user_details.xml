@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/white"
+              android:orientation="vertical"
+    >
+
+  <com.githubusers.presentation.component.AutoLoadImageView
+      android:id="@+id/iv_cover"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/iv_cover_height"
+      android:background="@android:color/white"
+      />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="@dimen/activity_horizontal_margin"
+      android:layout_marginRight="@dimen/activity_horizontal_margin"
+      android:orientation="vertical"
+      android:background="@android:color/white"
+      >
+    <TextView
+        style="@style/AppTheme.TextViewTitle"
+        android:text="@string/text_user_name"
+        />
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:freezesText="true"
+        />
+    <TextView
+        style="@style/AppTheme.TextViewTitle"
+        android:text="@string/text_user_url"
+        />
+    <TextView
+        android:id="@+id/tv_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:freezesText="true"
+        />
+
+    <TextView
+        style="@style/AppTheme.TextViewTitle"
+        android:text="@string/text_followers"
+        />
+    <TextView
+        android:id="@+id/tv_followers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:freezesText="true"
+        />
+
+    <TextView
+        style="@style/AppTheme.TextViewTitle"
+        android:text="@string/text_following"
+        />
+    <TextView
+        android:id="@+id/tv_following"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:freezesText="true"
+        />
+  </LinearLayout>
+
+</LinearLayout>

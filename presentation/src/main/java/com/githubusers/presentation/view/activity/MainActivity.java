@@ -14,6 +14,8 @@ public class MainActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+
+    getActionBar().setTitle(getString(R.string.activity_main));
   }
 
   @OnClick(R.id.btn_search)

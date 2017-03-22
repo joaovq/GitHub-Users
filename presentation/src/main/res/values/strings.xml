@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">GitHubUsers</string>
 
+    //Activity
+    <string name="activity_user_details">User details</string>
+    <string name="activity_main">GitHub Users</string>
+
+    //Textview
+    <string name="text_user_name">User name</string>
+    <string name="text_user_url">GitHub account</string>
+    <string name="text_num_repos">Number of respositories</string>
+    <string name="text_followers">Followers</string>
+    <string name="text_following">Following</string>
+
     //EditTexts
     <string name="edit_user_name">User name</string>
 
     //Buttons
     <string name="btn_search">Search</string>
+    <string name="btn_retry">Retry</string>
 
     //Exception messages
     <string name="exception_message_generic">There was an application error</string>

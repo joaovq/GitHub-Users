@@ -32,13 +32,30 @@ class CloudUserDataStore implements UserDataStore {
 
   private final Retrofit retrofit;
   private final ThreadExecutor threadExecutor;
+  private final UserDataStoreFactory userDataStoreFactory;
+
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
+   * @param retrofit Retrofit instance used to communicate with GitHub's REST API
    */
   CloudUserDataStore(Retrofit retrofit, ThreadExecutor threadExecutor) {
     this.retrofit =retrofit;
     this.threadExecutor = threadExecutor;
+    userDataStoreFactory = null;
+  }
+
+  /**
+   * Construct a {@link UserDataStore} based on connections to the api (Cloud).
+   *
+   * @param retrofit Retrofit instance used to communicate with GitHub's REST API
+   */
+  CloudUserDataStore(Retrofit retrofit,
+                     ThreadExecutor threadExecutor,
+                     UserDataStoreFactory userDataStoreFactory ) {
+    this.retrofit =retrofit;
+    this.threadExecutor = threadExecutor;
+    this.userDataStoreFactory = userDataStoreFactory;
   }
 
   @Override

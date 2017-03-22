@@ -9,14 +9,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.githubusers.presentation.R;
+import com.githubusers.presentation.component.AutoLoadImageView;
 import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.view.fragment.BaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -27,6 +32,15 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
 
   @Inject
   UserDetailsPresenter userDetailsPresenter;
+
+  @Bind(R.id.iv_cover)      AutoLoadImageView coverImageView;
+  @Bind(R.id.tv_user_name)  TextView          userNameTextView;
+  @Bind(R.id.tv_followers)  TextView          followersTextView;
+  @Bind(R.id.tv_following)  TextView          followingTextView;
+  @Bind(R.id.tv_url)        TextView          urlTextView;
+  @Bind(R.id.rl_progress)   RelativeLayout    progressLayout;
+  @Bind(R.id.rl_retry)      RelativeLayout    retryLayout;
+  @Bind(R.id.bt_retry)      Button            retryButton;
 
   public static UserDetailsFragment forUser(String userId) {
     final UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
@@ -90,7 +104,11 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   @Override
   public void renderUser(UserModel user) {
     if (user != null) {
-
+      coverImageView.setImageUrl(user.getAvatarUrl());
+      followersTextView.setText(user.getFollowers().toString());
+      followingTextView.setText(user.getFollowing().toString());
+      userNameTextView.setText(user.getLogin());
+      urlTextView.setText(user.getPublic_repos().toString());
     }
   }
 

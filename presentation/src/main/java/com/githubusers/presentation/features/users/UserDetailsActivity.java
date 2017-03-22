@@ -32,6 +32,8 @@ public class UserDetailsActivity extends BaseActivity implements HasComponent<Us
 
     this.initializeActivity(savedInstanceState);
     this.initializeInjector();
+
+    getActionBar().setTitle(getString(R.string.activity_user_details));
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
