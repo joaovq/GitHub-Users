@@ -16,8 +16,6 @@
 package com.githubusers.presentation.features.users;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 
 import com.githubusers.domain.exception.DefaultErrorBundle;
 import com.githubusers.domain.exception.ErrorBundle;
@@ -120,7 +118,6 @@ public class UserDetailsPresenter implements Presenter {
     public void onError(Throwable e) {
       UserDetailsPresenter.this.hideViewLoading();
       UserDetailsPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      UserDetailsPresenter.this.showViewRetry();
     }
 
     @Override

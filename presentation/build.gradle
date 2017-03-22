@@ -78,6 +78,7 @@ dependencies {
     compile presentationDependencies.saripaar
     compile presentationDependencies.retrofitRxAdapter
     compile presentationDependencies.retrofitGsonConverter
+    compile presentationDependencies.eventBus
 
     provided presentationDependencies.javaxAnnotation
     provided presentationDependencies.lombok

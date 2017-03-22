@@ -63,6 +63,7 @@ dependencies {
     compile dataDependencies.androidAnnotations
     compile dataDependencies.jobQueue
     compile dataDependencies.retrofit
+    compile dataDependencies.eventBus
 
     provided dataDependencies.lombok
 
