@@ -1,4 +1,4 @@
-package com.githubusers.presentation.view.activity;
+package com.githubusers.presentation.features.users;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.HasComponent;
 import com.githubusers.presentation.di.components.DaggerUserComponent;
 import com.githubusers.presentation.di.components.UserComponent;
-import com.githubusers.presentation.view.fragment.UserDetailsFragment;
+import com.githubusers.presentation.view.activity.BaseActivity;
 
 public class UserDetailsActivity extends BaseActivity implements HasComponent<UserComponent> {
 

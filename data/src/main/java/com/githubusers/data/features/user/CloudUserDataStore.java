@@ -19,9 +19,6 @@ import android.util.Log;
 
 import com.githubusers.domain.executor.ThreadExecutor;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
 import java.util.List;
 
 import io.reactivex.Observable;

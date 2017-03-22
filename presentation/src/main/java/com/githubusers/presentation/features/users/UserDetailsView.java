@@ -2,9 +2,10 @@
  * Copyright (C) 2014 android10.org. All rights reserved.
  * @author Fernando Cejas (the android10 coder)
  */
-package com.githubusers.presentation.view;
+package com.githubusers.presentation.features.users;
 
 import com.githubusers.presentation.features.users.UserModel;
+import com.githubusers.presentation.view.LoadDataView;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.

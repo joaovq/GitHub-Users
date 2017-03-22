@@ -18,7 +18,7 @@ package com.githubusers.presentation.navigation;
 import android.content.Context;
 import android.content.Intent;
 
-import com.githubusers.presentation.view.activity.UserDetailsActivity;
+import com.githubusers.presentation.features.users.UserDetailsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

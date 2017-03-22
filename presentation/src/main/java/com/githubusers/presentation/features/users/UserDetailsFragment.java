@@ -2,7 +2,7 @@
  * Copyright (C) 2014 android10.org. All rights reserved.
  * @author Fernando Cejas (the android10 coder)
  */
-package com.githubusers.presentation.view.fragment;
+package com.githubusers.presentation.features.users;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.components.UserComponent;
-import com.githubusers.presentation.features.users.UserDetailsPresenter;
-import com.githubusers.presentation.features.users.UserModel;
-import com.githubusers.presentation.view.UserDetailsView;
+import com.githubusers.presentation.view.fragment.BaseFragment;
 
 import javax.inject.Inject;
 

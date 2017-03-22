@@ -19,7 +19,7 @@ package com.githubusers.presentation.di.components;
 import com.githubusers.presentation.di.modules.ActivityModule;
 import com.githubusers.presentation.di.modules.UserModule;
 import com.githubusers.presentation.di.PerActivity;
-import com.githubusers.presentation.view.fragment.UserDetailsFragment;
+import com.githubusers.presentation.features.users.UserDetailsFragment;
 
 import dagger.Component;
 

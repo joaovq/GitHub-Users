@@ -27,7 +27,6 @@ import com.githubusers.domain.features.user.GetUserDetails;
 import com.githubusers.domain.features.user.User;
 import com.githubusers.presentation.exception.ErrorMessageFactory;
 import com.githubusers.presentation.features.Presenter;
-import com.githubusers.presentation.view.UserDetailsView;
 import com.githubusers.domain.features.user.GetUserDetails.Params;
 import com.githubusers.presentation.di.PerActivity;
 
