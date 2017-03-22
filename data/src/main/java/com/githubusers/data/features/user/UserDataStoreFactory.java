@@ -17,8 +17,13 @@ package com.githubusers.data.features.user;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.githubusers.domain.executor.ThreadExecutor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,15 +36,25 @@ import retrofit2.Retrofit;
 @Singleton
 public class UserDataStoreFactory {
 
-  private final Context context;
   private final Retrofit retrofit;
   private final ThreadExecutor threadExecutor;
+  private final UserEntityDataMapper userEntityDataMapper;
 
   @Inject
-  UserDataStoreFactory(@NonNull Context context, @NonNull Retrofit retrofit, @NonNull ThreadExecutor threadExecutor) {
-    this.context = context.getApplicationContext();
+  UserDataStoreFactory(@NonNull Retrofit retrofit,
+                       @NonNull ThreadExecutor threadExecutor,
+                       UserEntityDataMapper userEntityDataMapper) {
     this.retrofit = retrofit;
     this.threadExecutor = threadExecutor;
+    this.userEntityDataMapper = userEntityDataMapper;
+
+    EventBus.getDefault().register(this);
+  }
+
+  @Subscribe(threadMode = ThreadMode.BACKGROUND)
+  public void onNewEntityEvent(UserEntity userEntity){
+    DiskUserDataStore userDataStore = new DiskUserDataStore(userEntityDataMapper);
+    userDataStore.addUser(userEntity);
   }
 
   /**
@@ -47,14 +62,12 @@ public class UserDataStoreFactory {
    */
   public UserDataStore create(String userId) {
     UserDataStore userDataStore;
+    if (DiskUserDataStore.isCached(userId))
+        userDataStore = new DiskUserDataStore(userEntityDataMapper);
+     else
+        userDataStore = createCloudDataStore();
 
-//    if (!this.userCache.isExpired() && this.userCache.isCached(userId)) {
-//      userDataStore = new DiskUserDataStore(this.userCache);
-//    } else {
-//      userDataStore = createCloudDataStore();
-//    }
-
-    return null;
+    return userDataStore;
   }
 
   /**
@@ -62,12 +75,5 @@ public class UserDataStoreFactory {
    */
   public UserDataStore createCloudDataStore() {
     return new CloudUserDataStore(retrofit, threadExecutor);
-  }
-
-  /**
-   * Create {@link UserDataStore} to retrieve data from the Cache.
-   */
-  public UserDataStore createDiskDataStore() {
-    return new DiskUserDataStore();
   }
 }

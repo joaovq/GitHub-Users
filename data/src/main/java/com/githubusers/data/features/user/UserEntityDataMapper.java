@@ -54,6 +54,25 @@ public class UserEntityDataMapper {
   }
 
   /**
+   * Transform a {@link RealmUserEntity} into an {@link UserEntity}.
+   *
+   * @param realmUserEntity Object to be transformed.
+   * @return {@link UserEntity} if valid {@link RealmUserEntity} otherwise null.
+   */
+  public UserEntity transform(RealmUserEntity realmUserEntity) {
+    UserEntity userEntity = null;
+    if (realmUserEntity != null) {
+      userEntity = new UserEntity();
+      userEntity.setLogin(realmUserEntity.getLogin());
+      userEntity.setPublicRepos(realmUserEntity.getPublic_repos());
+      userEntity.setAvatarUrl(realmUserEntity.getAvatarUrl());
+      userEntity.setFollowers(realmUserEntity.getFollowers());
+      userEntity.setFollowing(realmUserEntity.getFollowing());
+    }
+    return userEntity;
+  }
+
+  /**
    * Transform a List of {@link UserEntity} into a Collection of {@link User}.
    *
    * @param userEntityCollection Object Collection to be transformed.

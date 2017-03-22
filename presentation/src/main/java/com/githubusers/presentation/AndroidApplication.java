@@ -22,6 +22,9 @@ import com.githubusers.presentation.di.components.DaggerApplicationComponent;
 import com.githubusers.presentation.di.modules.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Android Main Application
  */
@@ -34,6 +37,7 @@ public class AndroidApplication extends Application {
     super.onCreate();
     this.initializeInjector();
     this.initializeLeakDetection();
+    this.initializaRealm();
   }
 
   private void initializeInjector() {
@@ -42,13 +46,21 @@ public class AndroidApplication extends Application {
         .build();
   }
 
-  public ApplicationComponent getApplicationComponent() {
-    return this.applicationComponent;
-  }
-
   private void initializeLeakDetection() {
     if (BuildConfig.DEBUG) {
       LeakCanary.install(this);
     }
+  }
+
+  private void initializaRealm(){
+    Realm.init(this);
+    RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build();
+    Realm.setDefaultConfiguration(realmConfiguration);
+  }
+
+  public ApplicationComponent getApplicationComponent() {
+    return this.applicationComponent;
   }
 }

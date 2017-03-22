@@ -56,7 +56,7 @@ public class UserDataRepository implements UserRepository {
 
   @Override
   public Observable<User> user(String userId) {
-    final UserDataStore userDataStore = this.userDataStoreFactory.createCloudDataStore();
+    final UserDataStore userDataStore = this.userDataStoreFactory.create(userId);
     return userDataStore.userEntityDetails(userId).map(this.userEntityDataMapper::transform);
   }
 }

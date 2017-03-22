@@ -11,6 +11,8 @@ import lombok.Setter;
 @Getter
 public class RealmUserEntity extends RealmObject {
   private String login;
-  private String blog;
-  private int public_repos;
+  private Integer public_repos;
+  private Integer followers;
+  private Integer following;
+  private String  avatarUrl;
 }

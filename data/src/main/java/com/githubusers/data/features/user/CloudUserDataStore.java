@@ -19,6 +19,8 @@ import android.util.Log;
 
 import com.githubusers.domain.executor.ThreadExecutor;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -45,19 +47,6 @@ class CloudUserDataStore implements UserDataStore {
     userDataStoreFactory = null;
   }
 
-  /**
-   * Construct a {@link UserDataStore} based on connections to the api (Cloud).
-   *
-   * @param retrofit Retrofit instance used to communicate with GitHub's REST API
-   */
-  CloudUserDataStore(Retrofit retrofit,
-                     ThreadExecutor threadExecutor,
-                     UserDataStoreFactory userDataStoreFactory ) {
-    this.retrofit =retrofit;
-    this.threadExecutor = threadExecutor;
-    this.userDataStoreFactory = userDataStoreFactory;
-  }
-
   @Override
   public Observable<List<UserEntity>> userEntityList() {
     return null;
@@ -70,7 +59,7 @@ class CloudUserDataStore implements UserDataStore {
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(userEntity -> {
-                Log.e(CloudUserDataStore.class.getName(),userEntity.getLogin());
+                EventBus.getDefault().postSticky(userEntity);
             });
     return result;
   }
