@@ -17,6 +17,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.component.AutoLoadImageView;
 import com.githubusers.presentation.di.components.UserComponent;
+import com.githubusers.presentation.view.activity.MainActivity;
 import com.githubusers.presentation.view.fragment.BaseFragment;
 
 import javax.inject.Inject;
@@ -147,7 +148,8 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
    */
   private void loadUserDetails() {
     if (this.userDetailsPresenter != null) {
-      this.userDetailsPresenter.initialize(currentUserId());
+      if(currentUserId() != null)
+        this.userDetailsPresenter.initialize(currentUserId());
     }
   }
 
