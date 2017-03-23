@@ -94,6 +94,6 @@ class CloudUserDataStore implements UserDataStore {
    * Adds job to be done when internet connection is back
    */
   private void userEntityDetailsJobQueue(){
-
+    jobManager.addJobInBackground(new GetUsersJob(userId));
   }
 }
