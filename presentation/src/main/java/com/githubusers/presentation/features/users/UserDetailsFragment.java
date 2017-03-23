@@ -6,7 +6,6 @@ package com.githubusers.presentation.features.users;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fernandocejas.arrow.checks.Preconditions;
-import com.fernandocejas.arrow.strings.Strings;
 import com.githubusers.presentation.R;
-import com.githubusers.presentation.component.AutoLoadImageView;
 import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.events.ArgumentEvent;
 import com.githubusers.presentation.view.fragment.BaseFragment;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
