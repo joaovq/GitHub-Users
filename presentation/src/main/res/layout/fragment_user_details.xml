@@ -9,4 +9,6 @@
 
     <include layout="@layout/view_retry" />
 
+    <include layout="@layout/view_no_internet_connection" />
+
 </RelativeLayout>

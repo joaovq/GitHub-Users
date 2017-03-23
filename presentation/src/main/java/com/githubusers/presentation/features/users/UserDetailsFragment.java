@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.events.ArgumentEvent;
@@ -34,17 +35,17 @@ import butterknife.ButterKnife;
 public class UserDetailsFragment extends BaseFragment implements UserDetailsView {
   private static final String PARAM_USER_ID = "param_user_id";
 
-  @Inject
-  UserDetailsPresenter userDetailsPresenter;
+  @Inject UserDetailsPresenter  userDetailsPresenter;
 
-  @Bind(R.id.iv_cover)      ImageView         coverImageView;
-  @Bind(R.id.tv_user_name)  TextView          userNameTextView;
-  @Bind(R.id.tv_followers)  TextView          followersTextView;
-  @Bind(R.id.tv_following)  TextView          followingTextView;
-  @Bind(R.id.tv_url)        TextView          urlTextView;
-  @Bind(R.id.rl_progress)   RelativeLayout    progressLayout;
-  @Bind(R.id.rl_retry)      RelativeLayout    retryLayout;
-  @Bind(R.id.bt_retry)      Button            retryButton;
+  @Bind(R.id.iv_cover)        ImageView         coverImageView;
+  @Bind(R.id.tv_user_name)    TextView          userNameTextView;
+  @Bind(R.id.tv_followers)    TextView          followersTextView;
+  @Bind(R.id.tv_following)    TextView          followingTextView;
+  @Bind(R.id.tv_url)          TextView          urlTextView;
+  @Bind(R.id.rl_progress)     RelativeLayout    progressLayout;
+  @Bind(R.id.rl_retry)        RelativeLayout    retryLayout;
+  @Bind(R.id.rl_no_internet)  RelativeLayout    noInternetLayout;
+  @Bind(R.id.bt_retry)        Button            retryButton;
 
   private String currentUserId;
 

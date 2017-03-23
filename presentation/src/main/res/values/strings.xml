@@ -11,6 +11,8 @@
     <string name="text_num_repos">Number of respositories</string>
     <string name="text_followers">Followers</string>
     <string name="text_following">Following</string>
+    <string name="text_no_internet_connection">Ops, there is no internet connection. The
+    user will be added to user cache as sonn as connection gets back!</string>
 
     //EditTexts
     <string name="edit_user_name">User name</string>
