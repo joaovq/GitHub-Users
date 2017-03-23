@@ -17,6 +17,7 @@ package com.githubusers.data.features.user;
 
 import android.support.annotation.NonNull;
 
+import com.githubusers.data.features.BaseFactory;
 import com.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,7 +33,7 @@ import retrofit2.Retrofit;
  * Factory that creates different implementations of {@link UserDataStore}.
  */
 @Singleton
-public class UserDataStoreFactory {
+public class UserDataStoreFactory extends BaseFactory {
 
   private final Retrofit retrofit;
   private final ThreadExecutor threadExecutor;
@@ -72,6 +73,9 @@ public class UserDataStoreFactory {
    * Create {@link UserDataStore} to retrieve data from the Cloud.
    */
   public UserDataStore createCloudDataStore() {
-    return new CloudUserDataStore(retrofit, threadExecutor);
+    if(isConnected())
+      return new CloudUserDataStore(retrofit, threadExecutor);
+    else
+      return null;
   }
 }

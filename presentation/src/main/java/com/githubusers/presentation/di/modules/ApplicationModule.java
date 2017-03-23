@@ -16,6 +16,8 @@
 package com.githubusers.presentation.di.modules;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.githubusers.data.executor.JobExecutor;
 import com.githubusers.data.features.user.UserDataRepository;
@@ -72,5 +74,14 @@ public class ApplicationModule {
             .build();
 
     return retrofit;
+  }
+
+  @Provides @Singleton NetworkInfo providesNetworkInfo(){
+    ConnectivityManager cm =
+            (ConnectivityManager)application.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    return activeNetwork;
+
   }
 }
