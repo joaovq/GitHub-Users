@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.fernandocejas.arrow.checks.Preconditions;
 import com.fernandocejas.arrow.strings.Strings;
 import com.githubusers.presentation.R;
@@ -40,7 +42,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   @Inject
   UserDetailsPresenter userDetailsPresenter;
 
-  @Bind(R.id.iv_cover)      AutoLoadImageView coverImageView;
+  @Bind(R.id.iv_cover)      ImageView         coverImageView;
   @Bind(R.id.tv_user_name)  TextView          userNameTextView;
   @Bind(R.id.tv_followers)  TextView          followersTextView;
   @Bind(R.id.tv_following)  TextView          followingTextView;
@@ -98,7 +100,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   @Override
   public void renderUser(UserModel user) {
     if (user != null) {
-      coverImageView.setImageUrl(user.getAvatarUrl());
+      setUserAvatar(user.getAvatarUrl());
       followersTextView.setText(user.getFollowers().toString());
       followingTextView.setText(user.getFollowing().toString());
       userNameTextView.setText(user.getLogin());
@@ -150,5 +152,15 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
     if (this.userDetailsPresenter != null) {
         this.userDetailsPresenter.initialize(currentUserId);
     }
+  }
+
+  /**
+   * Loads image from url
+   * @param url Image's path
+   */
+  private void setUserAvatar(String url){
+    Glide.with(this)
+            .load(url)
+            .into(coverImageView);
   }
 }

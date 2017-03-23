@@ -79,6 +79,8 @@ dependencies {
     compile presentationDependencies.retrofitRxAdapter
     compile presentationDependencies.retrofitGsonConverter
     compile presentationDependencies.eventBus
+    compile presentationDependencies.glide
+    compile presentationDependencies.androidV4
 
     provided presentationDependencies.javaxAnnotation
     provided presentationDependencies.lombok
