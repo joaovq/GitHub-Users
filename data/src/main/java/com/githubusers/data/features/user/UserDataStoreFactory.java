@@ -15,10 +15,7 @@
  */
 package com.githubusers.data.features.user;
 
-import android.support.annotation.NonNull;
-
 import com.githubusers.data.features.BaseFactory;
-import com.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,32 +24,26 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import retrofit2.Retrofit;
-
 /**
  * Factory that creates different implementations of {@link UserDataStore}.
  */
 @Singleton
 public class UserDataStoreFactory extends BaseFactory {
 
-  private final Retrofit retrofit;
-  private final ThreadExecutor threadExecutor;
-  private final UserEntityDataMapper userEntityDataMapper;
+  private final DiskUserDataStore   diskUserDataStore;
+  private final CloudUserDataStore  cloudUserDataStore;
 
   @Inject
-  UserDataStoreFactory(@NonNull Retrofit retrofit,
-                       @NonNull ThreadExecutor threadExecutor,
-                       UserEntityDataMapper userEntityDataMapper) {
-    this.retrofit = retrofit;
-    this.threadExecutor = threadExecutor;
-    this.userEntityDataMapper = userEntityDataMapper;
-
+  UserDataStoreFactory(DiskUserDataStore diskUserDataStore,
+                       CloudUserDataStore cloudUserDataStore) {
+    this.diskUserDataStore = diskUserDataStore;
+    this.cloudUserDataStore = cloudUserDataStore;
     EventBus.getDefault().register(this);
   }
 
   @Subscribe(threadMode = ThreadMode.BACKGROUND)
   public void onNewEntityEvent(UserEntity userEntity){
-    DiskUserDataStore userDataStore = new DiskUserDataStore(userEntityDataMapper);
+    DiskUserDataStore userDataStore = diskUserDataStore;
     userDataStore.addUser(userEntity);
   }
 
@@ -62,7 +53,7 @@ public class UserDataStoreFactory extends BaseFactory {
   public UserDataStore create(String userId) {
     UserDataStore userDataStore;
     if (DiskUserDataStore.isCached(userId))
-        userDataStore = new DiskUserDataStore(userEntityDataMapper);
+        userDataStore = diskUserDataStore;
      else
         userDataStore = createCloudDataStore();
 
@@ -74,7 +65,7 @@ public class UserDataStoreFactory extends BaseFactory {
    */
   public UserDataStore createCloudDataStore() {
     if(isConnected())
-      return new CloudUserDataStore(retrofit, threadExecutor);
+      return cloudUserDataStore;
     else
       return null;
   }

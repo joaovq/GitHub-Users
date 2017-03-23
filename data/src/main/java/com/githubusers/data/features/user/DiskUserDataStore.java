@@ -19,6 +19,9 @@ import com.githubusers.domain.features.user.User;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -26,6 +29,7 @@ import io.realm.RealmResults;
 /**
  * {@link UserDataStore} implementation based on file system data store.
  */
+@Singleton
 class DiskUserDataStore implements UserDataStore {
   private final Realm realm;
   private final UserEntityDataMapper userEntityDataMapper;
@@ -33,6 +37,7 @@ class DiskUserDataStore implements UserDataStore {
   /**
    * Construct a {@link UserDataStore} based file system data store.
    */
+  @Inject
   DiskUserDataStore(UserEntityDataMapper userEntityDataMapper) {
     this.realm = Realm.getDefaultInstance();
     this.userEntityDataMapper = userEntityDataMapper;

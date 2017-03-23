@@ -19,6 +19,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.birbit.android.jobqueue.JobManager;
+import com.birbit.android.jobqueue.config.Configuration;
 import com.githubusers.data.executor.JobExecutor;
 import com.githubusers.data.features.user.UserDataRepository;
 import com.githubusers.domain.executor.PostExecutionThread;
@@ -74,6 +76,15 @@ public class ApplicationModule {
             .build();
 
     return retrofit;
+  }
+
+  @Provides @Singleton JobManager providesJobManager(){
+    Configuration.Builder builder = new Configuration.Builder(application)
+            .minConsumerCount(1) // always keep at least one consumer alive
+            .maxConsumerCount(3) // up to 3 consumers at a time
+            .loadFactor(3) // 3 jobs per consumer
+            .consumerKeepAlive(120); // wait 2 minute
+    return new JobManager(builder.build());
   }
 
   @Provides @Singleton NetworkInfo providesNetworkInfo(){

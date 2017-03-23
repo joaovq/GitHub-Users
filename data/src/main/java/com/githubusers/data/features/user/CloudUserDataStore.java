@@ -15,13 +15,15 @@
  */
 package com.githubusers.data.features.user;
 
-import android.util.Log;
-
+import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -30,21 +32,24 @@ import retrofit2.Retrofit;
 /**
  * {@link UserDataStore} implementation based on connections to the api (Cloud).
  */
+@Singleton
 class CloudUserDataStore implements UserDataStore {
 
   private final Retrofit retrofit;
   private final ThreadExecutor threadExecutor;
-  private final UserDataStoreFactory userDataStoreFactory;
+  private final JobManager jobManager;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
-   * @param retrofit Retrofit instance used to communicate with GitHub's REST API
    */
-  CloudUserDataStore(Retrofit retrofit, ThreadExecutor threadExecutor) {
-    this.retrofit =retrofit;
+  @Inject
+  CloudUserDataStore(Retrofit retrofit,
+                     ThreadExecutor threadExecutor,
+                     JobManager jobManager) {
+    this.retrofit = retrofit;
     this.threadExecutor = threadExecutor;
-    userDataStoreFactory = null;
+    this.jobManager = jobManager;
   }
 
   @Override
