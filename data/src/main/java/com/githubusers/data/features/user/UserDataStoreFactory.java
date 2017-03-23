@@ -15,9 +15,7 @@
  */
 package com.githubusers.data.features.user;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.githubusers.domain.executor.ThreadExecutor;
 
