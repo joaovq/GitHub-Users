@@ -16,6 +16,7 @@
 package com.githubusers.data.features.user;
 
 import com.birbit.android.jobqueue.JobManager;
+import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +28,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import lombok.Getter;
 import retrofit2.Retrofit;
 
 /**
@@ -35,9 +37,12 @@ import retrofit2.Retrofit;
 @Singleton
 class CloudUserDataStore implements UserDataStore {
 
-  private final Retrofit retrofit;
-  private final ThreadExecutor threadExecutor;
-  private final JobManager jobManager;
+  @Getter String userId;
+
+  private final Retrofit          retrofit;
+  private final ThreadExecutor    threadExecutor;
+  private final JobManager        jobManager;
+  private final NetworkInfoUtils networkInfoUtils;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
@@ -46,10 +51,12 @@ class CloudUserDataStore implements UserDataStore {
   @Inject
   CloudUserDataStore(Retrofit retrofit,
                      ThreadExecutor threadExecutor,
-                     JobManager jobManager) {
+                     JobManager jobManager,
+                     NetworkInfoUtils networkInfoUtils) {
     this.retrofit = retrofit;
     this.threadExecutor = threadExecutor;
     this.jobManager = jobManager;
+    this.networkInfoUtils = networkInfoUtils;
   }
 
   @Override
@@ -59,13 +66,34 @@ class CloudUserDataStore implements UserDataStore {
 
   @Override
   public Observable<UserEntity> userEntityDetails(final String userId) {
+    this.userId = userId;
+    if(networkInfoUtils.isConnected())
+      return userEntityDetailsRetrofit();
+    else {
+      userEntityDetailsJobQueue();
+      return Observable.empty();
+    }
+  }
+
+  /**
+   * Makes connection with REST API to get users
+   * @return {@link Observable} of {@link UserEntity}
+   */
+  private Observable<UserEntity> userEntityDetailsRetrofit(){
     GitHubService service = retrofit.create(GitHubService.class);
     Observable<UserEntity> result = service.getUser(userId);
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(userEntity -> {
-                EventBus.getDefault().postSticky(userEntity);
+              EventBus.getDefault().postSticky(userEntity);
             });
     return result;
+  }
+
+  /**
+   * Adds job to be done when internet connection is back
+   */
+  private void userEntityDetailsJobQueue(){
+
   }
 }

@@ -15,8 +15,6 @@
  */
 package com.githubusers.data.features.user;
 
-import com.githubusers.data.features.BaseFactory;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -28,7 +26,7 @@ import javax.inject.Singleton;
  * Factory that creates different implementations of {@link UserDataStore}.
  */
 @Singleton
-public class UserDataStoreFactory extends BaseFactory {
+public class UserDataStoreFactory {
 
   private final DiskUserDataStore   diskUserDataStore;
   private final CloudUserDataStore  cloudUserDataStore;
@@ -55,18 +53,9 @@ public class UserDataStoreFactory extends BaseFactory {
     if (DiskUserDataStore.isCached(userId))
         userDataStore = diskUserDataStore;
      else
-        userDataStore = createCloudDataStore();
+        userDataStore = cloudUserDataStore;
 
     return userDataStore;
   }
 
-  /**
-   * Create {@link UserDataStore} to retrieve data from the Cloud.
-   */
-  public UserDataStore createCloudDataStore() {
-    if(isConnected())
-      return cloudUserDataStore;
-    else
-      return null;
-  }
 }

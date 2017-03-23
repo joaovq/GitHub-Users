@@ -23,6 +23,7 @@ import com.birbit.android.jobqueue.JobManager;
 import com.birbit.android.jobqueue.config.Configuration;
 import com.githubusers.data.executor.JobExecutor;
 import com.githubusers.data.features.user.UserDataRepository;
+import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.domain.executor.PostExecutionThread;
 import com.githubusers.domain.executor.ThreadExecutor;
 import com.githubusers.domain.features.user.UserRepository;
@@ -87,12 +88,12 @@ public class ApplicationModule {
     return new JobManager(builder.build());
   }
 
-  @Provides @Singleton NetworkInfo providesNetworkInfo(){
-    ConnectivityManager cm =
+  @Provides @Singleton NetworkInfoUtils providesNetworkInfo(){
+    ConnectivityManager connectivityManager =
             (ConnectivityManager)application.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-    return activeNetwork;
-
+    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+    NetworkInfoUtils networkInfoUtils = new NetworkInfoUtils(activeNetwork);
+    return networkInfoUtils;
   }
 }
