@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.githubusers.presentation.features.users;
+package com.githubusers.presentation.features.users.details;
 
 import android.support.annotation.NonNull;
 
@@ -27,6 +27,8 @@ import com.githubusers.presentation.exception.ErrorMessageFactory;
 import com.githubusers.presentation.features.Presenter;
 import com.githubusers.domain.features.user.GetUserDetails.Params;
 import com.githubusers.presentation.di.PerActivity;
+import com.githubusers.presentation.features.users.UserModel;
+import com.githubusers.presentation.features.users.UserModelDataMapper;
 
 import javax.inject.Inject;
 import javax.inject.Named;

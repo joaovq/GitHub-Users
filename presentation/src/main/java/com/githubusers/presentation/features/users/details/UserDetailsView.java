@@ -2,7 +2,7 @@
  * Copyright (C) 2014 android10.org. All rights reserved.
  * @author Fernando Cejas (the android10 coder)
  */
-package com.githubusers.presentation.features.users;
+package com.githubusers.presentation.features.users.details;
 
 import com.githubusers.presentation.features.users.UserModel;
 import com.githubusers.presentation.view.LoadDataView;

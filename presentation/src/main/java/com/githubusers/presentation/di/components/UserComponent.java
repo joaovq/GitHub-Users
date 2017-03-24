@@ -19,7 +19,8 @@ package com.githubusers.presentation.di.components;
 import com.githubusers.presentation.di.modules.ActivityModule;
 import com.githubusers.presentation.di.modules.UserModule;
 import com.githubusers.presentation.di.PerActivity;
-import com.githubusers.presentation.features.users.UserDetailsFragment;
+import com.githubusers.presentation.features.users.details.UserDetailsFragment;
+import com.githubusers.presentation.features.users.list.UserListFragment;
 
 import dagger.Component;
 
@@ -31,4 +32,5 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
 public interface UserComponent extends ActivityComponent {
   void inject(UserDetailsFragment userDetailsFragment);
+  void inject(UserListFragment userListFragment);
 }

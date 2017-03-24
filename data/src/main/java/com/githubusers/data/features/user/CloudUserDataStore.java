@@ -42,7 +42,7 @@ class CloudUserDataStore implements UserDataStore {
   private final Retrofit          retrofit;
   private final ThreadExecutor    threadExecutor;
   private final JobManager        jobManager;
-  private final NetworkInfoUtils networkInfoUtils;
+  private final NetworkInfoUtils  networkInfoUtils;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
@@ -85,7 +85,7 @@ class CloudUserDataStore implements UserDataStore {
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(userEntity -> {
-              EventBus.getDefault().postSticky(userEntity);
+              EventBus.getDefault().post(userEntity);
             });
     return result;
   }

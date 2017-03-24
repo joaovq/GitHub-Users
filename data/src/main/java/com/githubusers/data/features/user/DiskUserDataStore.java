@@ -31,7 +31,6 @@ import io.realm.RealmResults;
  */
 @Singleton
 class DiskUserDataStore implements UserDataStore {
-  private final Realm realm;
   private final UserEntityDataMapper userEntityDataMapper;
 
   /**
@@ -39,23 +38,27 @@ class DiskUserDataStore implements UserDataStore {
    */
   @Inject
   DiskUserDataStore(UserEntityDataMapper userEntityDataMapper) {
-    this.realm = Realm.getDefaultInstance();
     this.userEntityDataMapper = userEntityDataMapper;
   }
 
   @Override
   public Observable<List<UserEntity>> userEntityList() {
-    //TODO: implement simple cache for storing/retrieving collections of users.
-    throw new UnsupportedOperationException("Operation is not available!!!");
+    Realm realm = Realm.getDefaultInstance();
+    RealmResults<RealmUserEntity> result = realm.where(RealmUserEntity.class)
+            .findAll();
+    List<UserEntity> userEntities = userEntityDataMapper.transformToUserEntity(result);
+    realm.close();
+    return Observable.just(userEntities);
   }
 
   @Override
   public Observable<UserEntity> userEntityDetails(final String userId) {
+    Realm realm = Realm.getDefaultInstance();
     RealmResults<RealmUserEntity> result = realm.where(RealmUserEntity.class)
                                                 .equalTo("login",userId)
                                                 .findAll();
-
-    return Observable.just(userEntityDataMapper.transform(result.get(0)));
+    realm.close();
+    return Observable.just(userEntityDataMapper.transformToUserEntity(result.get(0)));
   }
 
   /**
@@ -63,6 +66,7 @@ class DiskUserDataStore implements UserDataStore {
    * @param userEntity {@link UserEntity} that represents user's data fecthed from the cloud
    */
   public void addUser(UserEntity userEntity){
+    Realm realm = Realm.getDefaultInstance();
     realm.beginTransaction();
       RealmUserEntity realmObject = realm.createObject(RealmUserEntity.class);
       realmObject.setLogin(userEntity.getLogin());
@@ -71,6 +75,7 @@ class DiskUserDataStore implements UserDataStore {
       realmObject.setFollowing(userEntity.getFollowing());
       realmObject.setPublic_repos(userEntity.getPublicRepos());
     realm.commitTransaction();
+    realm.close();
   }
 
   /**

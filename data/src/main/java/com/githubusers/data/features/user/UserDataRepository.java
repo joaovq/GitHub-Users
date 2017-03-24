@@ -49,14 +49,13 @@ public class UserDataRepository implements UserRepository {
 
   @Override
   public Observable<List<User>> users() {
-    //we always get all users from the cloud
-    final UserDataStore userDataStore = this.userDataStoreFactory.create(null);
-    return userDataStore.userEntityList().map(this.userEntityDataMapper::transform);
+    final UserDataStore userDataStore = this.userDataStoreFactory.createLocalDataStore();
+    return userDataStore.userEntityList().map(this.userEntityDataMapper::transformToUser);
   }
 
   @Override
   public Observable<User> user(String userId) {
     final UserDataStore userDataStore = this.userDataStoreFactory.create(userId);
-    return userDataStore.userEntityDetails(userId).map(this.userEntityDataMapper::transform);
+    return userDataStore.userEntityDetails(userId).map(this.userEntityDataMapper::transformToUser);
   }
 }

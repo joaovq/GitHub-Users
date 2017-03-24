@@ -39,14 +39,13 @@ public class UserDataStoreFactory {
     EventBus.getDefault().register(this);
   }
 
-  @Subscribe(threadMode = ThreadMode.BACKGROUND)
+  @Subscribe(threadMode = ThreadMode.POSTING)
   public void onNewEntityEvent(UserEntity userEntity){
-    DiskUserDataStore userDataStore = diskUserDataStore;
-    userDataStore.addUser(userEntity);
+    diskUserDataStore.addUser(userEntity);
   }
 
   /**
-   * Create {@link UserDataStore} from a user id.
+   * Creates a {@link UserDataStore} from a user id.
    */
   public UserDataStore create(String userId) {
     UserDataStore userDataStore;
@@ -56,6 +55,13 @@ public class UserDataStoreFactory {
         userDataStore = cloudUserDataStore;
 
     return userDataStore;
+  }
+
+  /**
+   * Creates a {@link UserDataStore for local manipulation
+   */
+  public UserDataStore createLocalDataStore() {
+    return diskUserDataStore;
   }
 
 }

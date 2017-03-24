@@ -19,6 +19,7 @@ import com.githubusers.domain.executor.PostExecutionThread;
 import com.githubusers.domain.executor.ThreadExecutor;
 import com.githubusers.domain.features.UseCase;
 import com.githubusers.domain.features.user.GetUserDetails;
+import com.githubusers.domain.features.user.GetUserList;
 import com.githubusers.domain.features.user.UserRepository;
 import com.githubusers.presentation.di.PerActivity;
 
@@ -39,5 +40,11 @@ public class UserModule {
           UserRepository userRepository, ThreadExecutor threadExecutor,
           PostExecutionThread postExecutionThread) {
     return new GetUserDetails(userRepository, threadExecutor, postExecutionThread);
+  }
+
+  @Provides @PerActivity @Named(GetUserList.NAME) UseCase provideGetUserListUseCase(
+          UserRepository userRepository, ThreadExecutor threadExecutor,
+          PostExecutionThread postExecutionThread) {
+    return new GetUserList(userRepository, threadExecutor, postExecutionThread);
   }
 }

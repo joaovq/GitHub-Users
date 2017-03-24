@@ -24,6 +24,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.realm.RealmResults;
+
 /**
  * Mapper class used to transform {@link UserEntity} (in the data layer) to {@link User} in the
  * domain layer.
@@ -40,7 +42,7 @@ public class UserEntityDataMapper {
    * @param userEntity Object to be transformed.
    * @return {@link User} if valid {@link UserEntity} otherwise null.
    */
-  public User transform(UserEntity userEntity) {
+  public User transformToUser(UserEntity userEntity) {
     User user = null;
     if (userEntity != null) {
       user = new User();
@@ -59,7 +61,7 @@ public class UserEntityDataMapper {
    * @param realmUserEntity Object to be transformed.
    * @return {@link UserEntity} if valid {@link RealmUserEntity} otherwise null.
    */
-  public UserEntity transform(RealmUserEntity realmUserEntity) {
+  public UserEntity transformToUserEntity(RealmUserEntity realmUserEntity) {
     UserEntity userEntity = null;
     if (realmUserEntity != null) {
       userEntity = new UserEntity();
@@ -78,14 +80,31 @@ public class UserEntityDataMapper {
    * @param userEntityCollection Object Collection to be transformed.
    * @return {@link User} if valid {@link UserEntity} otherwise null.
    */
-  public List<User> transform(Collection<UserEntity> userEntityCollection) {
+  public List<User> transformToUser(Collection<UserEntity> userEntityCollection) {
     final List<User> userList = new ArrayList<>(20);
     for (UserEntity userEntity : userEntityCollection) {
-      final User user = transform(userEntity);
+      final User user = transformToUser(userEntity);
       if (user != null) {
         userList.add(user);
       }
     }
     return userList;
+  }
+
+  /**
+   * Transform a List of {@link RealmUserEntity} into a Collection of {@link UserEntity}.
+   *
+   * @param realmUserEntities Object Collection to be transformed.
+   * @return List of {@link UserEntity} if valid list of {@link RealmUserEntity} otherwise null.
+   */
+  public List<UserEntity> transformToUserEntity(RealmResults<RealmUserEntity> realmUserEntities) {
+    final List<UserEntity> userEntities = new ArrayList<>();
+    for (RealmUserEntity realmUserEntity : realmUserEntities) {
+      final UserEntity userEntity = transformToUserEntity(realmUserEntity);
+      if (userEntity != null) {
+        userEntities.add(userEntity);
+      }
+    }
+    return userEntities;
   }
 }

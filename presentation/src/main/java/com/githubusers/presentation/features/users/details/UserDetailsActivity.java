@@ -1,4 +1,4 @@
-package com.githubusers.presentation.features.users;
+package com.githubusers.presentation.features.users.details;
 
 import android.content.Context;
 import android.content.Intent;

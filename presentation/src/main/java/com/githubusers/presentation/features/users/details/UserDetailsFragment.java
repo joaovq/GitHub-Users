@@ -2,7 +2,7 @@
  * Copyright (C) 2014 android10.org. All rights reserved.
  * @author Fernando Cejas (the android10 coder)
  */
-package com.githubusers.presentation.features.users;
+package com.githubusers.presentation.features.users.details;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,12 +15,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.events.ArgumentEvent;
+import com.githubusers.presentation.features.users.UserModel;
+import com.githubusers.presentation.utils.GlideLoader;
 import com.githubusers.presentation.view.fragment.BaseFragment;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -33,9 +35,9 @@ import butterknife.ButterKnife;
  * Fragment that shows details of a certain user.
  */
 public class UserDetailsFragment extends BaseFragment implements UserDetailsView {
-  private static final String PARAM_USER_ID = "param_user_id";
 
   @Inject UserDetailsPresenter  userDetailsPresenter;
+  @Inject GlideLoader           glideLoader;
 
   @Bind(R.id.iv_cover)        ImageView         coverImageView;
   @Bind(R.id.tv_user_name)    TextView          userNameTextView;
@@ -67,6 +69,18 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     this.userDetailsPresenter.setView(this);
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
   }
 
   @Override
@@ -155,8 +169,6 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
    * @param url Image's path
    */
   private void setUserAvatar(String url){
-    Glide.with(this)
-            .load(url)
-            .into(coverImageView);
+    glideLoader.load(url,coverImageView);
   }
 }

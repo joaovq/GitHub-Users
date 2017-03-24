@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".features.users.UserDetailsActivity">
-        </activity>
+        <activity android:name=".features.users.details.UserDetailsActivity" />
+        <activity android:name=".features.users.list.UserListActivity" />
+
     </application>
 
 </manifest>
