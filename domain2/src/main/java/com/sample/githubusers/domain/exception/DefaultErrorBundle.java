@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.githubusers.data.exception;
-
-import com.sample.githubusers.domain.exception.ErrorBundle;
+package com.sample.githubusers.domain.exception;
 
 /**
- * Wrapper around Exceptions used to manage errors in the repository.
+ *  Wrapper around Exceptions used to manage default errors.
  */
-class RepositoryErrorBundle implements ErrorBundle {
+public class DefaultErrorBundle implements ErrorBundle {
+
+  private static final String DEFAULT_ERROR_MSG = "Unknown error";
 
   private final Exception exception;
 
-  RepositoryErrorBundle(Exception exception) {
+  public DefaultErrorBundle(Exception exception) {
     this.exception = exception;
   }
 
@@ -35,10 +35,6 @@ class RepositoryErrorBundle implements ErrorBundle {
 
   @Override
   public String getErrorMessage() {
-    String message = "";
-    if (this.exception != null) {
-      message = this.exception.getMessage();
-    }
-    return message;
+    return (exception != null) ? this.exception.getMessage() : DEFAULT_ERROR_MSG;
   }
 }

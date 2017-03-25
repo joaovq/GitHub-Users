@@ -13,29 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.githubusers.presentation;
-
-
-import com.sample.githubusers.domain.executor.PostExecutionThread;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+package com.sample.githubusers.domain.exception;
 
 /**
- * MainThread (UI Thread) implementation based on a {@link Scheduler}
- * which will execute actions on the Android UI thread
+ * Interface to represent a wrapper around an {@link Exception} to manage errors.
  */
-@Singleton
-public class UIThread implements PostExecutionThread {
+public interface ErrorBundle {
+  Exception getException();
 
-  @Inject
-  UIThread() {}
-
-  @Override
-  public Scheduler getScheduler() {
-    return AndroidSchedulers.mainThread();
-  }
+  String getErrorMessage();
 }

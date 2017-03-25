@@ -17,7 +17,7 @@ package com.githubusers.data.executor;
 
 import android.support.annotation.NonNull;
 
-import com.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.executor.ThreadExecutor;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;

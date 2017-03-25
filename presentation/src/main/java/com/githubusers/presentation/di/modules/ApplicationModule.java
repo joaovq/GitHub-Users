@@ -24,11 +24,11 @@ import com.birbit.android.jobqueue.config.Configuration;
 import com.githubusers.data.executor.JobExecutor;
 import com.githubusers.data.features.user.UserDataRepository;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
-import com.githubusers.domain.executor.PostExecutionThread;
-import com.githubusers.domain.executor.ThreadExecutor;
-import com.githubusers.domain.features.user.UserRepository;
 import com.githubusers.presentation.AndroidApplication;
 import com.githubusers.presentation.UIThread;
+import com.sample.githubusers.domain.executor.PostExecutionThread;
+import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.user.UserRepository;
 
 import javax.inject.Singleton;
 

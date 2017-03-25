@@ -17,11 +17,11 @@ package com.githubusers.presentation.di.components;
 
 import android.content.Context;
 
-import com.githubusers.domain.executor.PostExecutionThread;
-import com.githubusers.domain.executor.ThreadExecutor;
-import com.githubusers.domain.features.user.UserRepository;
 import com.githubusers.presentation.di.modules.ApplicationModule;
 import com.githubusers.presentation.view.activity.BaseActivity;
+import com.sample.githubusers.domain.executor.PostExecutionThread;
+import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.user.UserRepository;
 
 import javax.inject.Singleton;
 

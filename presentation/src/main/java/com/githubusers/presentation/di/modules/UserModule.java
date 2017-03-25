@@ -15,13 +15,13 @@
  */
 package com.githubusers.presentation.di.modules;
 
-import com.githubusers.domain.executor.PostExecutionThread;
-import com.githubusers.domain.executor.ThreadExecutor;
-import com.githubusers.domain.features.UseCase;
-import com.githubusers.domain.features.user.GetUserDetails;
-import com.githubusers.domain.features.user.GetUserList;
-import com.githubusers.domain.features.user.UserRepository;
 import com.githubusers.presentation.di.PerActivity;
+import com.sample.githubusers.domain.executor.PostExecutionThread;
+import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.UseCase;
+import com.sample.githubusers.domain.features.user.GetUserDetails;
+import com.sample.githubusers.domain.features.user.GetUserList;
+import com.sample.githubusers.domain.features.user.UserRepository;
 
 import javax.inject.Named;
 
@@ -36,7 +36,8 @@ public class UserModule {
 
   public UserModule() {}
 
-  @Provides @PerActivity @Named(GetUserDetails.NAME) UseCase provideGetUserDetailsUseCase(
+  @Provides @PerActivity @Named(GetUserDetails.NAME)
+  UseCase provideGetUserDetailsUseCase(
           UserRepository userRepository, ThreadExecutor threadExecutor,
           PostExecutionThread postExecutionThread) {
     return new GetUserDetails(userRepository, threadExecutor, postExecutionThread);

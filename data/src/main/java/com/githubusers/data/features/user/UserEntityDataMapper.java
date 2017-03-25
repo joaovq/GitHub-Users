@@ -15,7 +15,7 @@
  */
 package com.githubusers.data.features.user;
 
-import com.githubusers.domain.features.user.User;
+import com.sample.githubusers.domain.features.user.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

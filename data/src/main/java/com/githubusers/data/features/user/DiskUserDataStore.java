@@ -15,8 +15,6 @@
  */
 package com.githubusers.data.features.user;
 
-import com.githubusers.domain.features.user.User;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

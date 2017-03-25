@@ -17,18 +17,17 @@ package com.githubusers.presentation.features.users.details;
 
 import android.support.annotation.NonNull;
 
-import com.githubusers.domain.exception.DefaultErrorBundle;
-import com.githubusers.domain.exception.ErrorBundle;
-import com.githubusers.domain.features.DefaultObserver;
-import com.githubusers.domain.features.UseCase;
-import com.githubusers.domain.features.user.GetUserDetails;
-import com.githubusers.domain.features.user.User;
 import com.githubusers.presentation.exception.ErrorMessageFactory;
 import com.githubusers.presentation.features.Presenter;
-import com.githubusers.domain.features.user.GetUserDetails.Params;
 import com.githubusers.presentation.di.PerActivity;
 import com.githubusers.presentation.features.users.UserModel;
 import com.githubusers.presentation.features.users.UserModelDataMapper;
+import com.sample.githubusers.domain.exception.DefaultErrorBundle;
+import com.sample.githubusers.domain.exception.ErrorBundle;
+import com.sample.githubusers.domain.features.DefaultObserver;
+import com.sample.githubusers.domain.features.UseCase;
+import com.sample.githubusers.domain.features.user.GetUserDetails;
+import com.sample.githubusers.domain.features.user.User;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -81,7 +80,7 @@ public class UserDetailsPresenter implements Presenter {
   }
 
   private void getUserDetails(String userId) {
-    this.getUserDetailsUseCase.execute(new UserDetailsObserver(), Params.forUser(userId));
+    this.getUserDetailsUseCase.execute(new UserDetailsObserver(), GetUserDetails.Params.forUser(userId));
   }
 
   private void showViewLoading() {

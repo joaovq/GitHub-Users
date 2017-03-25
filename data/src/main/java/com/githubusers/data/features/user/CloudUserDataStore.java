@@ -15,15 +15,11 @@
  */
 package com.githubusers.data.features.user;
 
-import android.util.Log;
-
 import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
-import com.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -44,7 +40,7 @@ class CloudUserDataStore implements UserDataStore {
   @Getter String userId;
 
   private final Retrofit          retrofit;
-  private final ThreadExecutor    threadExecutor;
+  private final ThreadExecutor threadExecutor;
   private final JobManager        jobManager;
   private final NetworkInfoUtils  networkInfoUtils;
 
