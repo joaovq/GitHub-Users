@@ -15,10 +15,6 @@
  */
 package com.githubusers.data.features.user;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -36,12 +32,6 @@ public class UserDataStoreFactory {
                        CloudUserDataStore cloudUserDataStore) {
     this.diskUserDataStore = diskUserDataStore;
     this.cloudUserDataStore = cloudUserDataStore;
-    EventBus.getDefault().register(this);
-  }
-
-  @Subscribe(threadMode = ThreadMode.POSTING)
-  public void onNewEntityEvent(UserEntity userEntity){
-    diskUserDataStore.addUser(userEntity);
   }
 
   /**

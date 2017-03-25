@@ -17,6 +17,10 @@ package com.githubusers.data.features.user;
 
 import com.githubusers.domain.features.user.User;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,6 +43,7 @@ class DiskUserDataStore implements UserDataStore {
   @Inject
   DiskUserDataStore(UserEntityDataMapper userEntityDataMapper) {
     this.userEntityDataMapper = userEntityDataMapper;
+    EventBus.getDefault().register(this);
   }
 
   @Override
@@ -65,7 +70,8 @@ class DiskUserDataStore implements UserDataStore {
    * Saves a new RealmUserEntity in cache
    * @param userEntity {@link UserEntity} that represents user's data fecthed from the cloud
    */
-  public void addUser(UserEntity userEntity){
+  @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
+  public void onAddUserEvent(UserEntity userEntity){
     Realm realm = Realm.getDefaultInstance();
     realm.beginTransaction();
       RealmUserEntity realmObject = realm.createObject(RealmUserEntity.class);

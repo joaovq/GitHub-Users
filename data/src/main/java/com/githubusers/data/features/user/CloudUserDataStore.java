@@ -20,6 +20,8 @@ import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -76,24 +78,24 @@ class CloudUserDataStore implements UserDataStore {
   }
 
   /**
+   * Adds job to be done when internet connection is back
+   */
+  private void userEntityDetailsJobQueue(){
+//    jobManager.addJobInBackground(new GetUsersJob(userId));
+  }
+
+  /**
    * Makes connection with REST API to get users
    * @return {@link Observable} of {@link UserEntity}
    */
-  private Observable<UserEntity> userEntityDetailsRetrofit(){
+  public Observable<UserEntity> userEntityDetailsRetrofit(){
     GitHubService service = retrofit.create(GitHubService.class);
     Observable<UserEntity> result = service.getUser(userId);
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(userEntity -> {
-              EventBus.getDefault().post(userEntity);
+              EventBus.getDefault().postSticky(userEntity);
             });
     return result;
-  }
-
-  /**
-   * Adds job to be done when internet connection is back
-   */
-  private void userEntityDetailsJobQueue(){
-    jobManager.addJobInBackground(new GetUsersJob(userId));
   }
 }

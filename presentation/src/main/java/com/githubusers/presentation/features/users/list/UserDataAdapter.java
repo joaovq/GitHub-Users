@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.features.users.UserModel;
-import com.githubusers.presentation.utils.GlideLoader;
+import com.githubusers.presentation.utils.glide.GlideLoader;
 
 import java.util.Collection;
 import java.util.Collections;

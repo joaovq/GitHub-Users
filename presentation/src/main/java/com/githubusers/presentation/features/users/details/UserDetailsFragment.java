@@ -14,12 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.events.ArgumentEvent;
 import com.githubusers.presentation.features.users.UserModel;
-import com.githubusers.presentation.utils.GlideLoader;
+import com.githubusers.presentation.utils.glide.GlideLoader;
 import com.githubusers.presentation.view.fragment.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;

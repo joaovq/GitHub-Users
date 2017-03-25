@@ -1,4 +1,4 @@
-package com.githubusers.presentation.utils;
+package com.githubusers.presentation.utils.glide;
 
 import android.content.Context;
 import android.widget.ImageView;

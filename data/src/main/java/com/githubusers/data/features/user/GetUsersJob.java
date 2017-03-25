@@ -1,7 +1,6 @@
 package com.githubusers.data.features.user;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.birbit.android.jobqueue.CancelReason;
 import com.birbit.android.jobqueue.Job;
@@ -13,6 +12,7 @@ import com.birbit.android.jobqueue.RetryConstraint;
  */
 public class GetUsersJob extends Job {
   public static final int PRIORITY = 1;
+
   private final String userId;
 
   public GetUsersJob(String userId) {
@@ -25,7 +25,7 @@ public class GetUsersJob extends Job {
 
   @Override
   public void onRun() throws Throwable {
-    Log.e(GetUsersJob.class.getCanonicalName(),"Job will be done");
+//
   }
 
   @Override
