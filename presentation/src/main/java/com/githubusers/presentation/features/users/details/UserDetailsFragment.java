@@ -140,6 +140,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
   @Override
   public void showError(String message) {
     this.showToastMessage(message);
+    getActivity().onBackPressed();
   }
 
   @Override

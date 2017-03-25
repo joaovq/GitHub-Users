@@ -33,6 +33,8 @@ import com.githubusers.presentation.features.users.UserModelDataMapper;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import retrofit2.HttpException;
+
 /**
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.

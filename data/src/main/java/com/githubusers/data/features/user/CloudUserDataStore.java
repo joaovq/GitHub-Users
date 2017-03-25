@@ -15,6 +15,8 @@
  */
 package com.githubusers.data.features.user;
 
+import android.util.Log;
+
 import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.domain.executor.ThreadExecutor;
@@ -93,9 +95,10 @@ class CloudUserDataStore implements UserDataStore {
     Observable<UserEntity> result = service.getUser(userId);
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
-            .subscribe(userEntity -> {
-              EventBus.getDefault().postSticky(userEntity);
-            });
+            .subscribe(
+                    userEntity -> EventBus.getDefault().postSticky(userEntity),
+                    throwable -> { }
+            );
     return result;
   }
 }
