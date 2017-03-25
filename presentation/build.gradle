@@ -65,7 +65,7 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
 
-    compile project(':domain2')
+    compile project(':domain')
     compile project(':data')
 
     apt presentationDependencies.daggerCompiler
