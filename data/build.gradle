@@ -64,9 +64,11 @@ dependencies {
     compile dataDependencies.jobQueue
     compile dataDependencies.retrofit
     compile dataDependencies.eventBus
+    compile presentationDependencies.dagger
 
     provided dataDependencies.lombok
 
+    apt presentationDependencies.daggerCompiler
     apt dataDependencies.lombok
 
     testCompile testDependencies.junit

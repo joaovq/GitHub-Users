@@ -17,6 +17,7 @@ package com.githubusers.presentation;
 
 import android.app.Application;
 
+import com.githubusers.data.DataManager;
 import com.githubusers.presentation.di.components.ApplicationComponent;
 import com.githubusers.presentation.di.components.DaggerApplicationComponent;
 import com.githubusers.presentation.di.modules.ApplicationModule;
@@ -31,13 +32,14 @@ import io.realm.RealmConfiguration;
 public class AndroidApplication extends Application {
 
   private ApplicationComponent applicationComponent;
+  private DataManager dataManager;
 
   @Override
   public void onCreate() {
     super.onCreate();
     this.initializeInjector();
     this.initializeLeakDetection();
-    this.initializaRealm();
+    this.initializeDataManager();
   }
 
   private void initializeInjector() {
@@ -52,12 +54,9 @@ public class AndroidApplication extends Application {
     }
   }
 
-  private void initializaRealm(){
-    Realm.init(this);
-    RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-            .deleteRealmIfMigrationNeeded()
-            .build();
-    Realm.setDefaultConfiguration(realmConfiguration);
+  private void initializeDataManager(){
+    if(dataManager == null)
+      dataManager = new DataManager(this);
   }
 
   public ApplicationComponent getApplicationComponent() {
