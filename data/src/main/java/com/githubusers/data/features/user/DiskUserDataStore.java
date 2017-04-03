@@ -15,6 +15,10 @@
  */
 package com.githubusers.data.features.user;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,6 +39,7 @@ class DiskUserDataStore implements UserDataStore {
   @Inject
   DiskUserDataStore(RealmUserEntityImpl realmUserEntityImpl) {
     this.realmUserEntityImpl = realmUserEntityImpl;
+    EventBus.getDefault().register(this);
   }
 
   @Override
@@ -45,6 +50,11 @@ class DiskUserDataStore implements UserDataStore {
   @Override
   public Observable<UserEntity> userEntityDetails(final String userId) {
     return realmUserEntityImpl.getUser(userId);
+  }
+
+  @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
+  public void addUser(UserEntity userEntity){
+    realmUserEntityImpl.addUser(userEntity);
   }
 
   /**

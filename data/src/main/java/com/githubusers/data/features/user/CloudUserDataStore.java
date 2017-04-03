@@ -39,9 +39,7 @@ class CloudUserDataStore implements UserDataStore {
 
   @Getter String userId;
 
-  private final Retrofit          retrofit;
-  private final ThreadExecutor threadExecutor;
-  private final JobManager        jobManager;
+  private final GitHubServiceImpl gitHubService;
   private final NetworkInfoUtils  networkInfoUtils;
 
   /**
@@ -49,13 +47,9 @@ class CloudUserDataStore implements UserDataStore {
    *
    */
   @Inject
-  CloudUserDataStore(Retrofit retrofit,
-                     ThreadExecutor threadExecutor,
-                     JobManager jobManager,
+  CloudUserDataStore( GitHubServiceImpl gitHubService,
                      NetworkInfoUtils networkInfoUtils) {
-    this.retrofit = retrofit;
-    this.threadExecutor = threadExecutor;
-    this.jobManager = jobManager;
+    this.gitHubService = gitHubService;
     this.networkInfoUtils = networkInfoUtils;
   }
 
@@ -87,14 +81,6 @@ class CloudUserDataStore implements UserDataStore {
    * @return {@link Observable} of {@link UserEntity}
    */
   public Observable<UserEntity> userEntityDetailsRetrofit(){
-    GitHubService service = retrofit.create(GitHubService.class);
-    Observable<UserEntity> result = service.getUser(userId);
-    result.subscribeOn(Schedulers.from(threadExecutor))
-            .observeOn(Schedulers.from(threadExecutor))
-            .subscribe(
-                    userEntity -> EventBus.getDefault().postSticky(userEntity),
-                    throwable -> { }
-            );
-    return result;
+    return gitHubService.getUsers(userId);
   }
 }

@@ -23,7 +23,6 @@ public class RealmUserEntityImpl {
   @Inject
   public RealmUserEntityImpl(UserEntityDataMapper userEntityDataMapper){
     this.userEntityDataMapper = userEntityDataMapper;
-    EventBus.getDefault().register(this);
   }
 
   public Observable<List<UserEntity>> getUsers(){
@@ -44,7 +43,6 @@ public class RealmUserEntityImpl {
     return Observable.just(userEntityDataMapper.transformToUserEntity(result.get(0)));
   }
 
-  @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
   public void addUser(UserEntity userEntity) {
     Realm realm = Realm.getDefaultInstance();
     realm.beginTransaction();
