@@ -46,6 +46,7 @@ public class CloudUserDataStore implements UserDataStore {
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
    */
+  @Inject
   public CloudUserDataStore(GitHubServiceImpl gitHubService,
                             JobManager jobManager,
                             NetworkInfoUtils networkInfoUtils) {

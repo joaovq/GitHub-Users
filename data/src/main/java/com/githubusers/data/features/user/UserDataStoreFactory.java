@@ -21,16 +21,17 @@ import javax.inject.Singleton;
 /**
  * Factory that creates different implementations of {@link UserDataStore}.
  */
-@Singleton
 public class UserDataStoreFactory {
 
-  @Inject public DiskUserDataStore   diskUserDataStore;
-  @Inject public CloudUserDataStore  cloudUserDataStore;
+  private final DiskUserDataStore   diskUserDataStore;
+  private final CloudUserDataStore  cloudUserDataStore;
 
   @Inject
-  public UserDataStoreFactory() {
+  public UserDataStoreFactory(DiskUserDataStore diskUserDataStore,
+                              CloudUserDataStore cloudUserDataStore){
+    this.diskUserDataStore = diskUserDataStore;
+    this.cloudUserDataStore = cloudUserDataStore;
   }
-
   /**
    * Creates a {@link UserDataStore} from a user id.
    */

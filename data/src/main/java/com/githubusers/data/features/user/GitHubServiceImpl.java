@@ -13,12 +13,10 @@ import retrofit2.Retrofit;
 
 /**
  */
-@Singleton
 public class GitHubServiceImpl {
   private final Retrofit retrofit;
   private final ThreadExecutor threadExecutor;
 
-  @Inject
   public GitHubServiceImpl(Retrofit retrofit, ThreadExecutor threadExecutor){
     this.retrofit = retrofit;
     this.threadExecutor = threadExecutor;

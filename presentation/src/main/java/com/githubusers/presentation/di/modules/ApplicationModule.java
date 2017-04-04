@@ -16,14 +16,9 @@
 package com.githubusers.presentation.di.modules;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
-import com.birbit.android.jobqueue.JobManager;
-import com.birbit.android.jobqueue.config.Configuration;
 import com.githubusers.data.executor.JobExecutor;
 import com.githubusers.data.features.user.UserDataRepository;
-import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.githubusers.presentation.AndroidApplication;
 import com.githubusers.presentation.UIThread;
 import com.sample.githubusers.domain.executor.PostExecutionThread;
@@ -34,9 +29,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -65,7 +57,8 @@ public class ApplicationModule {
   }
 
   @Provides @Singleton
-  UserRepository provideUserRepository(UserDataRepository userDataRepository) {
+  UserRepository provideUserRepository() {
+    UserDataRepository userDataRepository = new UserDataRepository();
     return userDataRepository;
   }
 }

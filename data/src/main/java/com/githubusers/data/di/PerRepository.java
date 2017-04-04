@@ -19,6 +19,7 @@ import java.lang.annotation.Retention;
 
 import javax.inject.Scope;
 
+import static java.lang.annotation.RetentionPolicy.CLASS;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
@@ -27,5 +28,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * correct component.
  */
 @Scope
-@Retention(RUNTIME)
+@Retention(CLASS)
 public @interface PerRepository {}

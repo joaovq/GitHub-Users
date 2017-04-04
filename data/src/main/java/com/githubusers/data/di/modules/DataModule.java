@@ -74,7 +74,7 @@ public class DataModule {
     return networkInfoUtils;
   }
 
-  @Provides
+  @Provides @Singleton
   GitHubServiceImpl providesGitHubServiceImpl(Retrofit retrofit, ThreadExecutor threadExecutor){
     return new GitHubServiceImpl(retrofit,threadExecutor);
   }

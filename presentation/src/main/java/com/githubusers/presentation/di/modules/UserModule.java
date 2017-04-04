@@ -38,13 +38,15 @@ public class UserModule {
 
   @Provides @PerActivity @Named(GetUserDetails.NAME)
   UseCase provideGetUserDetailsUseCase(
-          UserRepository userRepository, ThreadExecutor threadExecutor,
+          UserRepository userRepository,
+          ThreadExecutor threadExecutor,
           PostExecutionThread postExecutionThread) {
     return new GetUserDetails(userRepository, threadExecutor, postExecutionThread);
   }
 
   @Provides @PerActivity @Named(GetUserList.NAME) UseCase provideGetUserListUseCase(
-          UserRepository userRepository, ThreadExecutor threadExecutor,
+          UserRepository userRepository,
+          ThreadExecutor threadExecutor,
           PostExecutionThread postExecutionThread) {
     return new GetUserList(userRepository, threadExecutor, postExecutionThread);
   }

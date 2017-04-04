@@ -33,11 +33,12 @@ import io.reactivex.Observable;
 public class GetUserList extends UseCase<List<User>, Void> {
   public static final String NAME = "userList";
 
-  private final UserRepository userRepository;
+  private final UserRepository  userRepository;
 
   @Inject
-  public GetUserList(UserRepository userRepository, ThreadExecutor threadExecutor,
-              PostExecutionThread postExecutionThread) {
+  public GetUserList(UserRepository userRepository,
+                     ThreadExecutor threadExecutor,
+                     PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
     this.userRepository = userRepository;
   }
