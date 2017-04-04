@@ -16,11 +16,9 @@ import io.realm.RealmResults;
 /**
  * Manages user's data in cache
  */
-@Singleton
 public class RealmUserEntityImpl {
   private final UserEntityDataMapper userEntityDataMapper;
 
-  @Inject
   public RealmUserEntityImpl(UserEntityDataMapper userEntityDataMapper){
     this.userEntityDataMapper = userEntityDataMapper;
   }

@@ -23,9 +23,6 @@ import com.githubusers.presentation.di.components.DaggerApplicationComponent;
 import com.githubusers.presentation.di.modules.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
 /**
  * Android Main Application
  */

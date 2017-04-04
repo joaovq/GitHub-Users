@@ -68,32 +68,4 @@ public class ApplicationModule {
   UserRepository provideUserRepository(UserDataRepository userDataRepository) {
     return userDataRepository;
   }
-
-  @Provides @Singleton Retrofit providesRetrofitService(){
-    Retrofit retrofit = new Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.github.com/")
-            .build();
-
-    return retrofit;
-  }
-
-  @Provides @Singleton JobManager providesJobManager(){
-    Configuration.Builder builder = new Configuration.Builder(application)
-            .minConsumerCount(1) // always keep at least one consumer alive
-            .maxConsumerCount(3) // up to 3 consumers at a time
-            .loadFactor(3) // 3 jobs per consumer
-            .consumerKeepAlive(120) ;// wait 2 minute
-    return new JobManager(builder.build());
-  }
-
-  @Provides @Singleton NetworkInfoUtils providesNetworkInfo(){
-    ConnectivityManager connectivityManager =
-            (ConnectivityManager)application.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-    NetworkInfoUtils networkInfoUtils = new NetworkInfoUtils(activeNetwork);
-    return networkInfoUtils;
-  }
 }

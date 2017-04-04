@@ -6,17 +6,27 @@ import com.birbit.android.jobqueue.CancelReason;
 import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
+import com.githubusers.data.DataManager;
+import com.githubusers.data.di.components.DataComponent;
+import com.githubusers.data.di.components.UserDataComponent;
+import com.githubusers.data.utils.job.BaseJob;
+
+import javax.inject.Inject;
+
+import retrofit2.Retrofit;
 
 /**
  * Gets user from REST API when internet connection is back
  */
-public class GetUsersJob extends Job {
-  public static final int PRIORITY = 1;
+public class GetUsersJob extends BaseJob {
 
   private final String userId;
+  private static final String GROUP = "get_user";
+
+  @Inject public GitHubServiceImpl gitHubService;
 
   public GetUsersJob(String userId) {
-    super(new Params(PRIORITY).requireNetwork().persist());
+    super(new Params(BACKGROUND).groupBy(GROUP).requireNetwork().persist());
     this.userId = userId;
   }
 
@@ -25,7 +35,7 @@ public class GetUsersJob extends Job {
 
   @Override
   public void onRun() throws Throwable {
-//
+    gitHubService.getUsers(userId);
   }
 
   @Override
@@ -35,4 +45,10 @@ public class GetUsersJob extends Job {
   }
   @Override
   protected void onCancel(@CancelReason int cancelReason, @Nullable Throwable throwable) { }
+
+  @Override
+  public void inject(DataComponent dataComponent) {
+    super.inject(dataComponent);
+    dataComponent.inject(this);
+  }
 }

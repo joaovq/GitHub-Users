@@ -34,23 +34,24 @@ import retrofit2.Retrofit;
 /**
  * {@link UserDataStore} implementation based on connections to the api (Cloud).
  */
-@Singleton
-class CloudUserDataStore implements UserDataStore {
+public class CloudUserDataStore implements UserDataStore {
 
   @Getter String userId;
 
   private final GitHubServiceImpl gitHubService;
   private final NetworkInfoUtils  networkInfoUtils;
+  private final JobManager        jobManager;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
    *
    */
-  @Inject
-  CloudUserDataStore( GitHubServiceImpl gitHubService,
-                     NetworkInfoUtils networkInfoUtils) {
+  public CloudUserDataStore(GitHubServiceImpl gitHubService,
+                            JobManager jobManager,
+                            NetworkInfoUtils networkInfoUtils) {
     this.gitHubService = gitHubService;
     this.networkInfoUtils = networkInfoUtils;
+    this.jobManager = jobManager;
   }
 
   @Override
@@ -73,7 +74,7 @@ class CloudUserDataStore implements UserDataStore {
    * Adds job to be done when internet connection is back
    */
   private void userEntityDetailsJobQueue(){
-//    jobManager.addJobInBackground(new GetUsersJob(userId));
+    jobManager.addJobInBackground(new GetUsersJob(userId));
   }
 
   /**

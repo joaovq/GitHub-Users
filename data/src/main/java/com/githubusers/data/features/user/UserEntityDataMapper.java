@@ -30,11 +30,9 @@ import io.realm.RealmResults;
  * Mapper class used to transform {@link UserEntity} (in the data layer) to {@link User} in the
  * domain layer.
  */
-@Singleton
 public class UserEntityDataMapper {
 
-  @Inject
-  UserEntityDataMapper() {}
+  public UserEntityDataMapper() {}
 
   /**
    * Transform a {@link UserEntity} into an {@link User}.

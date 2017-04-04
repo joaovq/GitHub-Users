@@ -24,14 +24,11 @@ import javax.inject.Singleton;
 @Singleton
 public class UserDataStoreFactory {
 
-  private final DiskUserDataStore   diskUserDataStore;
-  private final CloudUserDataStore  cloudUserDataStore;
+  @Inject public DiskUserDataStore   diskUserDataStore;
+  @Inject public CloudUserDataStore  cloudUserDataStore;
 
   @Inject
-  UserDataStoreFactory(DiskUserDataStore diskUserDataStore,
-                       CloudUserDataStore cloudUserDataStore) {
-    this.diskUserDataStore = diskUserDataStore;
-    this.cloudUserDataStore = cloudUserDataStore;
+  public UserDataStoreFactory() {
   }
 
   /**

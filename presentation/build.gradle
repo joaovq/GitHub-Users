@@ -76,8 +76,6 @@ dependencies {
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.appCompat
     compile presentationDependencies.saripaar
-    compile presentationDependencies.retrofitRxAdapter
-    compile presentationDependencies.retrofitGsonConverter
     compile presentationDependencies.eventBus
     compile presentationDependencies.glide
     compile presentationDependencies.androidV4

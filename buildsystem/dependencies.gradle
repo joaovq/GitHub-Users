@@ -58,8 +58,6 @@ ext {
       appCompat:              "com.android.support:appcompat-v7:${appCompatVersion}",
       saripaar:               "com.mobsandgeeks:android-saripaar:${saripaarVersion}",
       lombok:                 "org.projectlombok:lombok:${lombokVersion}",
-      retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitRxAdapterVersion}",
-      retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitGsonConverterVersion}",
       eventBus:               "org.greenrobot:eventbus:${eventBusVersion}",
       glide:                  "com.github.bumptech.glide:glide:${glideVersion}",
       androidV4:              "com.android.support:support-v4:${androidV4Version}"
@@ -101,7 +99,9 @@ ext {
       jobQueue:           "com.birbit:android-priority-jobqueue:${jobQueueVersion}",
       retrofit:           "com.squareup.retrofit2:retrofit:${retrofitVersion}",
       lombok:             "org.projectlombok:lombok:${lombokVersion}",
-      eventBus:           "org.greenrobot:eventbus:${eventBusVersion}"
+      eventBus:           "org.greenrobot:eventbus:${eventBusVersion}",
+      retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitRxAdapterVersion}",
+      retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitGsonConverterVersion}"
   ]
 
   dataTestDependencies = [

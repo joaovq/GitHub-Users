@@ -29,15 +29,13 @@ import io.reactivex.Observable;
 /**
  * {@link UserDataStore} implementation based on file system data store.
  */
-@Singleton
-class DiskUserDataStore implements UserDataStore {
+public class DiskUserDataStore implements UserDataStore {
   private final RealmUserEntityImpl realmUserEntityImpl;
 
   /**
    * Construct a {@link UserDataStore} based file system data store.
    */
-  @Inject
-  DiskUserDataStore(RealmUserEntityImpl realmUserEntityImpl) {
+  public DiskUserDataStore(RealmUserEntityImpl realmUserEntityImpl) {
     this.realmUserEntityImpl = realmUserEntityImpl;
     EventBus.getDefault().register(this);
   }

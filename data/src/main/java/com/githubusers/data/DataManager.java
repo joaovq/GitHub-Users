@@ -13,7 +13,7 @@ import io.realm.RealmConfiguration;
  *
  */
 public class DataManager {
-  private DataComponent dataComponent;
+  private static DataComponent dataComponent;
   private Context context;
 
   public DataManager(Context context){
@@ -37,7 +37,7 @@ public class DataManager {
             .build();
   }
 
-  public DataComponent getComponent(){
+  public static DataComponent getComponent(){
     return dataComponent;
   }
 }

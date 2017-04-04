@@ -16,6 +16,11 @@
 package com.githubusers.data.features.user;
 
 
+import com.githubusers.data.DataManager;
+import com.githubusers.data.di.components.DaggerUserDataComponent;
+import com.githubusers.data.di.components.DataComponent;
+import com.githubusers.data.di.components.UserDataComponent;
+import com.githubusers.data.di.modules.UserDataModule;
 import com.sample.githubusers.domain.features.user.User;
 import com.sample.githubusers.domain.features.user.UserRepository;
 
@@ -35,17 +40,17 @@ public class UserDataRepository implements UserRepository {
   private final UserDataStoreFactory userDataStoreFactory;
   private final UserEntityDataMapper userEntityDataMapper;
 
+  private static UserDataComponent userDataComponent;
+
   /**
    * Constructs a {@link UserRepository}.
    *
-   * @param dataStoreFactory A factory to construct different data source implementations.
-   * @param userEntityDataMapper {@link UserEntityDataMapper}.
    */
   @Inject
-  UserDataRepository(UserDataStoreFactory dataStoreFactory,
-                     UserEntityDataMapper userEntityDataMapper) {
-    this.userDataStoreFactory = dataStoreFactory;
-    this.userEntityDataMapper = userEntityDataMapper;
+  UserDataRepository() {
+    this.userDataStoreFactory = new UserDataStoreFactory();
+    this.userEntityDataMapper = new UserEntityDataMapper();
+    initializeInjector();
   }
 
   @Override
@@ -58,5 +63,17 @@ public class UserDataRepository implements UserRepository {
   public Observable<User> user(String userId) {
     final UserDataStore userDataStore = this.userDataStoreFactory.create(userId);
     return userDataStore.userEntityDetails(userId).map(this.userEntityDataMapper::transformToUser);
+  }
+
+  private void initializeInjector(){
+    this.userDataComponent = DaggerUserDataComponent.builder()
+            .userDataModule(new UserDataModule())
+            .dataComponent(DataManager.getComponent())
+            .build();
+    this.userDataComponent.inject(userDataStoreFactory);
+  }
+
+  public static UserDataComponent getUserDataComponent(){
+    return userDataComponent;
   }
 }

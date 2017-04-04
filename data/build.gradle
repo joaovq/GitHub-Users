@@ -64,11 +64,13 @@ dependencies {
     compile dataDependencies.jobQueue
     compile dataDependencies.retrofit
     compile dataDependencies.eventBus
-    compile presentationDependencies.dagger
+    compile dataDependencies.dagger
+    compile dataDependencies.retrofitRxAdapter
+    compile dataDependencies.retrofitGsonConverter
 
     provided dataDependencies.lombok
 
-    apt presentationDependencies.daggerCompiler
+    apt dataDependencies.daggerCompiler
     apt dataDependencies.lombok
 
     testCompile testDependencies.junit
