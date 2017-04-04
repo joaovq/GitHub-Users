@@ -18,6 +18,7 @@ package com.githubusers.data.features.user;
 import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
 import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.user.User;
 
 import org.greenrobot.eventbus.EventBus;
 
