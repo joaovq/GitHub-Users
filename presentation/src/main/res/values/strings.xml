@@ -3,11 +3,14 @@
 
     //Activity
     <string name="activity_user_details">User details</string>
-    <string name="activity_main">GitHub Users</string>
+    <string name="activity_movie_details">Movie details</string>
+    <string name="activity_main">The CinemaDB</string>
     <string name="activity_user_list">History</string>
 
     //Textview
     <string name="text_user_name">User name</string>
+    <string name="text_movie_title">Title</string>
+    <string name="text_movie_year">Year</string>
     <string name="text_user_url">GitHub account</string>
     <string name="text_num_repos">Number of respositories</string>
     <string name="text_followers">Followers</string>
@@ -16,7 +19,8 @@
     user will be added to user cache as sonn as connection gets back!</string>
 
     //EditTexts
-    <string name="edit_user_name">User name</string>
+    <string name="edit_search">User name</string>
+    <string name="edit_title">Title</string>
 
     //Buttons
     <string name="btn_search">Search</string>

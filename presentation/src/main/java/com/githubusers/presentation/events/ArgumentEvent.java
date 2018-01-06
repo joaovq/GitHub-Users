@@ -6,9 +6,16 @@ import lombok.Setter;
 /**
  * Message model that represent events arguments
  */
-@Setter @Getter
 public class ArgumentEvent {
-  Object argument;
+    public Object getArgument() {
+        return argument;
+    }
+
+    public void setArgument(Object argument) {
+        this.argument = argument;
+    }
+
+    Object argument;
 
   public ArgumentEvent(Object argument){
       this.argument = argument;

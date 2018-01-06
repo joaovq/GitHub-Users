@@ -10,6 +10,7 @@ import com.birbit.android.jobqueue.config.Configuration;
 import com.birbit.android.jobqueue.di.DependencyInjector;
 import com.githubusers.data.DataManager;
 import com.githubusers.data.executor.JobExecutor;
+import com.githubusers.data.features.movie.OMDbServiceImpl;
 import com.githubusers.data.features.user.GitHubServiceImpl;
 import com.githubusers.data.utils.job.BaseJob;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
@@ -38,7 +39,8 @@ public class DataModule {
     Retrofit retrofit = new Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.github.com/")
+//            .baseUrl("https://api.github.com/")
+            .baseUrl("https://www.omdbapi.com/")
             .build();
 
     return retrofit;
@@ -77,5 +79,10 @@ public class DataModule {
   @Provides @Singleton
   GitHubServiceImpl providesGitHubServiceImpl(Retrofit retrofit, ThreadExecutor threadExecutor){
     return new GitHubServiceImpl(retrofit,threadExecutor);
+  }
+
+  @Provides @Singleton
+  OMDbServiceImpl providesOMDbServiceImpl(Retrofit retrofit, ThreadExecutor threadExecutor){
+    return new OMDbServiceImpl(retrofit,threadExecutor);
   }
 }

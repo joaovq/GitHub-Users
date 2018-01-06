@@ -18,11 +18,13 @@ package com.githubusers.presentation.di.modules;
 import android.content.Context;
 
 import com.githubusers.data.executor.JobExecutor;
+import com.githubusers.data.features.movie.MovieDataRepository;
 import com.githubusers.data.features.user.UserDataRepository;
 import com.githubusers.presentation.AndroidApplication;
 import com.githubusers.presentation.UIThread;
 import com.sample.githubusers.domain.executor.PostExecutionThread;
 import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.movie.MovieRepository;
 import com.sample.githubusers.domain.features.user.UserRepository;
 
 import javax.inject.Singleton;
@@ -60,5 +62,11 @@ public class ApplicationModule {
   UserRepository provideUserRepository() {
     UserDataRepository userDataRepository = new UserDataRepository();
     return userDataRepository;
+  }
+
+  @Provides @Singleton
+  MovieRepository providesMovieRepository() {
+    MovieRepository dataRepository = new MovieDataRepository();
+    return dataRepository;
   }
 }

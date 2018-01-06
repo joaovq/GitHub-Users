@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GitHub-Users.iml" filepath="$PROJECT_DIR$/GitHub-Users.iml" />
       <module fileurl="file://$PROJECT_DIR$/GitHubUsers.iml" filepath="$PROJECT_DIR$/GitHubUsers.iml" />
       <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />

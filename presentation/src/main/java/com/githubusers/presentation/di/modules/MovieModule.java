@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.githubusers.presentation.di.components;
+package com.githubusers.presentation.di.modules;
 
-import android.content.Context;
-
-import com.githubusers.presentation.di.modules.ApplicationModule;
-import com.githubusers.presentation.view.activity.BaseActivity;
+import com.githubusers.presentation.di.PerActivity;
 import com.sample.githubusers.domain.executor.PostExecutionThread;
 import com.sample.githubusers.domain.executor.ThreadExecutor;
+import com.sample.githubusers.domain.features.UseCase;
+import com.sample.githubusers.domain.features.movie.GetMovie;
 import com.sample.githubusers.domain.features.movie.MovieRepository;
-import com.sample.githubusers.domain.features.user.UserRepository;
 
-import javax.inject.Singleton;
+import javax.inject.Named;
 
-import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
 /**
- * A component whose lifetime is the life of the application.
+ * Dagger module that provides movie related collaborators.
  */
-@Singleton // Constraints this component to one-per-application or unscoped bindings.
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
-  void inject(BaseActivity baseActivity);
+@Module
+public class MovieModule {
 
-  //Exposed to sub-graphs.
-  Context context();
-  ThreadExecutor threadExecutor();
-  PostExecutionThread postExecutionThread();
-  UserRepository userRepository();
-  MovieRepository movieRepository();
+    public MovieModule() {}
+
+    @Provides @PerActivity @Named(GetMovie.NAME)
+    UseCase providesGetMovieUseCase(
+            MovieRepository movieRepository,
+            ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetMovie(movieRepository, threadExecutor, postExecutionThread);
+    }
 }

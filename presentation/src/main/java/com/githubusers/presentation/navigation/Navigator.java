@@ -18,6 +18,7 @@ package com.githubusers.presentation.navigation;
 import android.content.Context;
 import android.content.Intent;
 
+import com.githubusers.presentation.features.movie.MovieDetailsActivity;
 import com.githubusers.presentation.features.users.details.UserDetailsActivity;
 import com.githubusers.presentation.features.users.list.UserListActivity;
 
@@ -43,6 +44,18 @@ public class Navigator {
   public void navigateToUserDetails(Context context) {
     if (context != null) {
       Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context);
+      context.startActivity(intentToLaunch);
+    }
+  }
+
+  /**
+   * Goes to the movie details screen.
+   *
+   * @param context A Context needed to open the destiny activity.
+   */
+  public void navigateToMovieDetails(Context context) {
+    if (context != null) {
+      Intent intentToLaunch = MovieDetailsActivity.getCallingIntent(context);
       context.startActivity(intentToLaunch);
     }
   }

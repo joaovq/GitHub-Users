@@ -21,7 +21,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements Validator.ValidationListener {
 
-  @NotEmpty @Bind(R.id.edit_user_name) EditText userNameEditText;
+  @NotEmpty @Bind(R.id.edit_search) EditText serachEditText;
 
   private Validator validator;
 
@@ -52,14 +52,14 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
    * Clear all edit texts
    */
   private void clearEditTexts(){
-    userNameEditText.getText().clear();
+    serachEditText.getText().clear();
   }
 
   @Override
   public void onValidationSucceeded() {
-    String userName = userNameEditText.getText().toString();
-    this.navigator.navigateToUserDetails(this);
-    EventBus.getDefault().postSticky(new ArgumentEvent(userName));
+    String title = serachEditText.getText().toString();
+    this.navigator.navigateToMovieDetails(this);
+    EventBus.getDefault().postSticky(new ArgumentEvent(title));
     clearEditTexts();
 
   }

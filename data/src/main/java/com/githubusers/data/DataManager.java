@@ -31,8 +31,8 @@ public class DataManager {
     Realm.setDefaultConfiguration(realmConfiguration);
   }
 
-  public void initializeInjector(){
-    this.dataComponent = DaggerDataComponent.builder()
+  private void initializeInjector(){
+    dataComponent = DaggerDataComponent.builder()
             .dataModule(new DataModule(context))
             .build();
   }
