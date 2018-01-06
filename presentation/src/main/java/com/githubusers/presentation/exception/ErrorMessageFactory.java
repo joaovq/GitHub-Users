@@ -47,7 +47,7 @@ public class ErrorMessageFactory {
     else if (exception instanceof UserNotFoundException)
       message = context.getString(R.string.exception_message_user_not_found);
     else if(exception instanceof HttpException)
-      message = context.getString(R.string.exception_message_user_not_found);
+      message = context.getString(R.string.exception_message_movie_not_found);
 
     return message;
   }

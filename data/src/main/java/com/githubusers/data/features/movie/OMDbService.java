@@ -9,5 +9,5 @@ import retrofit2.http.Query;
  */
 public interface OMDbService {
   @GET("/")
-  Observable<MovieEntity> getMovie(@Query("t") String title, @Query("api_key") String apiKey);
+  Observable<MovieEntity> getMovie(@Query("t") String title, @Query("apiKey") String apiKey);
 }

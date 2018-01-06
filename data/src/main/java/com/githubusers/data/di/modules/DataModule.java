@@ -40,7 +40,7 @@ public class DataModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
 //            .baseUrl("https://api.github.com/")
-            .baseUrl("https://www.omdbapi.com/")
+            .baseUrl("http://www.omdbapi.com")
             .build();
 
     return retrofit;

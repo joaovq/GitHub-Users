@@ -23,8 +23,8 @@ public class MovieEntity {
   @Expose
   private String imdbVotes;
 
-  @Expose
-  private List<String> Ratings;
+//  @Expose
+//  private List<String> Ratings;
 
   @Expose
   private String Runtime;
@@ -118,13 +118,13 @@ public class MovieEntity {
     this.imdbVotes = imdbVotes;
   }
 
-  public List<String> getRatings() {
-    return Ratings;
-  }
-
-  public void setRatings(List<String> ratings) {
-    Ratings = ratings;
-  }
+//  public List<String> getRatings() {
+//    return Ratings;
+//  }
+//
+//  public void setRatings(List<String> ratings) {
+//    Ratings = ratings;
+//  }
 
   public String getRuntime() {
     return Runtime;

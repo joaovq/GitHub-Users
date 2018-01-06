@@ -1,5 +1,7 @@
 package com.githubusers.data.features.movie;
 
+import android.util.Log;
+
 import com.sample.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,8 +28,11 @@ public class OMDbServiceImpl {
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(
-                    userEntity -> EventBus.getDefault().postSticky(userEntity),
-                    throwable -> { }
+                    movieEntity -> {
+                      Log.d("OMBvServiceImpl", "getMovie: " + movieEntity);
+                      EventBus.getDefault().postSticky(movieEntity);
+                    },
+                    throwable -> {  }
             );
     return result;
   }

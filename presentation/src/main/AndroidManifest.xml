@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.users.details.UserDetailsActivity" />
+        <activity android:name=".features.movie.MovieDetailsActivity" />
         <activity android:name=".features.users.list.UserListActivity" />
 
     </application>

@@ -101,7 +101,7 @@ public class MovieDetailsPresenter implements Presenter {
     this.viewDetailsView.showError(errorMessage);
   }
 
-  private void showUserDetailsInView(Movie movie) {
+  private void showMovieDetailsInView(Movie movie) {
     final MovieModel movieModel = this.modelMapper.transform(movie);
     this.viewDetailsView.onMovie(movieModel);
   }
@@ -121,7 +121,7 @@ public class MovieDetailsPresenter implements Presenter {
 
     @Override
     public void onNext(Movie movie) {
-      MovieDetailsPresenter.this.showUserDetailsInView(movie);
+      MovieDetailsPresenter.this.showMovieDetailsInView(movie);
     }
   }
 }
