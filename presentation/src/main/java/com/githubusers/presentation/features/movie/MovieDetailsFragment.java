@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.githubusers.presentation.R;
 import com.githubusers.presentation.di.components.MovieComponent;
-import com.githubusers.presentation.di.components.UserComponent;
 import com.githubusers.presentation.events.ArgumentEvent;
 import com.githubusers.presentation.utils.glide.GlideLoader;
 import com.githubusers.presentation.view.fragment.BaseFragment;
@@ -147,15 +146,16 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
   public void onMessageEvent(ArgumentEvent event) {
     currentMovieTitle = (String) event.getArgument();
-    this.loadUserDetails();
+    this.loadMovieDetails();
   }
 
 
   /**
    * Load user details.
    */
-  private void loadUserDetails() {
+  private void loadMovieDetails() {
     if (this.detailsPresenter != null) {
+      currentMovieTitle = currentMovieTitle.replace(" ", "+");
         this.detailsPresenter.initialize(currentMovieTitle);
     }
   }

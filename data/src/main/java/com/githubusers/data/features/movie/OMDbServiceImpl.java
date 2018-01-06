@@ -28,10 +28,7 @@ public class OMDbServiceImpl {
     result.subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(Schedulers.from(threadExecutor))
             .subscribe(
-                    movieEntity -> {
-                      Log.d("OMBvServiceImpl", "getMovie: " + movieEntity);
-                      EventBus.getDefault().postSticky(movieEntity);
-                    },
+                    movieEntity -> EventBus.getDefault().postSticky(movieEntity),
                     throwable -> {  }
             );
     return result;
