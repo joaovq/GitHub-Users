@@ -1,7 +1,5 @@
 package com.githubusers.data.features.movie;
 
-import android.util.Log;
-
 import com.sample.githubusers.domain.executor.ThreadExecutor;
 
 import org.greenrobot.eventbus.EventBus;

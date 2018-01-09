@@ -1,23 +1,35 @@
 package com.githubusers.presentation.events;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Message model that represent events arguments
  */
 public class ArgumentEvent {
-    public Object getArgument() {
-        return argument;
+    public Object getArgument1() {
+        return argument1;
     }
 
-    public void setArgument(Object argument) {
-        this.argument = argument;
+    public void setArgument1(Object argument1) {
+        this.argument1 = argument1;
     }
 
-    Object argument;
+    private Object argument1;
 
-  public ArgumentEvent(Object argument){
-      this.argument = argument;
+    public Object getArgument2() {
+        return argument2;
+    }
+
+    public void setArgument2(Object argument2) {
+        this.argument2 = argument2;
+    }
+
+    private Object argument2;
+
+  public ArgumentEvent(Object argument1){
+      this.argument1 = argument1;
   }
+
+    public ArgumentEvent(Object argument1, Object argument2){
+        this.argument1 = argument1;
+        this.argument2 = argument2;
+    }
 }

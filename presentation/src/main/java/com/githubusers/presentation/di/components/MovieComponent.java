@@ -27,7 +27,7 @@ import dagger.Component;
 
 /**
  * A scope {@link PerActivity} component.
- * Injects movie specific Fragments.
+ * Injects movieFromAPI specific Fragments.
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, MovieModule.class})

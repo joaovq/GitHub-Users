@@ -46,6 +46,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Bind(R.id.bt_retry)        Button            retryButton;
 
   private String currentMovieTitle;
+  private String currentButton;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +146,8 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
 
   @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
   public void onMessageEvent(ArgumentEvent event) {
-    currentMovieTitle = (String) event.getArgument();
+    currentMovieTitle = (String) event.getArgument1();
+    currentButton = (String) event.getArgument2();
     this.loadMovieDetails();
   }
 
@@ -156,7 +158,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   private void loadMovieDetails() {
     if (this.detailsPresenter != null) {
       currentMovieTitle = currentMovieTitle.replace(" ", "+");
-        this.detailsPresenter.initialize(currentMovieTitle);
+        this.detailsPresenter.initialize(currentMovieTitle,currentButton);
     }
   }
 

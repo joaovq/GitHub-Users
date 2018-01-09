@@ -3,7 +3,7 @@ package com.sample.githubusers.domain.features.movie;
 import java.util.List;
 
 /**
- * Model to represent a movie object
+ * Model to represent a movieFromAPI object
  */
 public class Movie {
     private String Released;

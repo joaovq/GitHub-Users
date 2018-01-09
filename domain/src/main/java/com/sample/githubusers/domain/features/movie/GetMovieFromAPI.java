@@ -28,15 +28,15 @@ import io.reactivex.Observable;
  * This class is an implementation of {@link UseCase} that represents a use case for
  * retrieving data related to an specific {@link Movie}.
  */
-public class GetMovie extends UseCase<Movie, GetMovie.Params> {
-  public static final String NAME = "Movie";
+public class GetMovieFromAPI extends UseCase<Movie, GetMovieFromAPI.Params> {
+  public static final String NAME = "MOVIE_API";
 
   private final MovieRepository repository;
 
   @Inject
-  public GetMovie(MovieRepository repository,
-                  ThreadExecutor threadExecutor,
-                  PostExecutionThread postExecutionThread) {
+  public GetMovieFromAPI(MovieRepository repository,
+                         ThreadExecutor threadExecutor,
+                         PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
     this.repository = repository;
   }
@@ -44,7 +44,7 @@ public class GetMovie extends UseCase<Movie, GetMovie.Params> {
   @Override
   public Observable<Movie> buildUseCaseObservable(Params params) {
     Preconditions.checkNotNull(params);
-    return this.repository.movie(params.title);
+    return this.repository.movieFromAPI(params.title);
   }
 
   public static final class Params {

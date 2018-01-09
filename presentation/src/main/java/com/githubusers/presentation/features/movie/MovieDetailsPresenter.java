@@ -24,7 +24,8 @@ import com.sample.githubusers.domain.exception.DefaultErrorBundle;
 import com.sample.githubusers.domain.exception.ErrorBundle;
 import com.sample.githubusers.domain.features.DefaultObserver;
 import com.sample.githubusers.domain.features.UseCase;
-import com.sample.githubusers.domain.features.movie.GetMovie;
+import com.sample.githubusers.domain.features.movie.GetMovieFromAPI;
+import com.sample.githubusers.domain.features.movie.GetMovieFromLOD;
 import com.sample.githubusers.domain.features.movie.Movie;
 
 import javax.inject.Inject;
@@ -39,13 +40,16 @@ public class MovieDetailsPresenter implements Presenter {
 
   private MovieDetailsView viewDetailsView;
 
-  private final UseCase getMovieUseCase;
+  private final UseCase getMovieFromAPIUseCase;
+  private final UseCase getMovieFromLODUseCase;
   private final MovieModelMapper modelMapper;
 
   @Inject
-  public MovieDetailsPresenter(@Named(GetMovie.NAME) UseCase getMovieUseCase,
-                               MovieModelMapper modelMapper) {
-    this.getMovieUseCase = getMovieUseCase;
+  MovieDetailsPresenter(@Named(GetMovieFromAPI.NAME) UseCase getMovieFromAPIUseCase,
+                        @Named(GetMovieFromLOD.NAME) UseCase getMovieFromLODUseCase,
+                        MovieModelMapper modelMapper) {
+    this.getMovieFromAPIUseCase = getMovieFromAPIUseCase;
+    this.getMovieFromLODUseCase = getMovieFromLODUseCase;
     this.modelMapper = modelMapper;
   }
 
@@ -61,22 +65,31 @@ public class MovieDetailsPresenter implements Presenter {
 
   @Override
   public void destroy() {
-    this.getMovieUseCase.dispose();
+    this.getMovieFromAPIUseCase.dispose();
+    this.getMovieFromLODUseCase.dispose();
     this.viewDetailsView = null;
   }
 
   /**
    * Initializes the presenter by showing/hiding proper views
-   * and retrieving movie details.
+   * and retrieving movieFromAPI details.
    */
-  public void initialize(String title) {
+  public void initialize(String title, String button) {
     this.hideViewRetry();
     this.showViewLoading();
-    this.getMovie(title);
+
+    if(button.equals("API"))
+      this.getMovieFromAPI(title);
+    else if(button.equals("LOD"))
+      this.getMovieFromLOD(title);
   }
 
-  private void getMovie(String title) {
-    this.getMovieUseCase.execute(new MovieObserver(), GetMovie.Params.forMovie(title));
+  private void getMovieFromAPI(String title) {
+    this.getMovieFromAPIUseCase.execute(new MovieObserver(), GetMovieFromAPI.Params.forMovie(title));
+  }
+
+  private void getMovieFromLOD(String title) {
+    this.getMovieFromLODUseCase.execute(new MovieObserver(), GetMovieFromLOD.Params.forMovie(title));
   }
 
   private void showViewLoading() {

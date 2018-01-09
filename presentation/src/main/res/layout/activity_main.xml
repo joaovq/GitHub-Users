@@ -23,18 +23,26 @@
         />
 
     <Button
-        android:id="@+id/btn_search"
+        android:id="@+id/btn_search_api"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_search"
-        android:text="@string/btn_search"
+        android:text="@string/btn_search_api"
+        />
+
+    <Button
+        android:id="@+id/btn_search_lod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_search_api"
+        android:text="@string/btn_search_lod"
         />
 
     <Button
         android:id="@+id/btn_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_search"
+        android:layout_below="@+id/btn_search_lod"
         android:text="@string/btn_history"
         />
 </RelativeLayout>

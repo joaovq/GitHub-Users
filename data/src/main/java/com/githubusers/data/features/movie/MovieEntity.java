@@ -8,7 +8,7 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * Class that represents a movie
+ * Class that represents a movieFromAPI
  */
 public class MovieEntity {
   @Expose

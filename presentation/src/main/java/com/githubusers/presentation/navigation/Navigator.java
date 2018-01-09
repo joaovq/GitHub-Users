@@ -49,7 +49,7 @@ public class Navigator {
   }
 
   /**
-   * Goes to the movie details screen.
+   * Goes to the movieFromAPI details screen.
    *
    * @param context A Context needed to open the destiny activity.
    */

@@ -34,6 +34,7 @@ ext {
   eventBusVersion = '3.0.0'
   glideVersion = '3.7.0'
   androidV4Version = '19.1.0'
+  okHttpVersion3 = '3.9.1'
 
   //Testing
   robolectricVersion = '3.1.1'
@@ -101,7 +102,9 @@ ext {
       lombok:             "org.projectlombok:lombok:${lombokVersion}",
       eventBus:           "org.greenrobot:eventbus:${eventBusVersion}",
       retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitRxAdapterVersion}",
-      retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitGsonConverterVersion}"
+      retrofitGsonConverter:  "com.squareup.retrofit2:converter-gson:${retrofitGsonConverterVersion}",
+      okHttp3:                 "com.squareup.okhttp3:okhttp:${okHttpVersion3}"
+
   ]
 
   dataTestDependencies = [

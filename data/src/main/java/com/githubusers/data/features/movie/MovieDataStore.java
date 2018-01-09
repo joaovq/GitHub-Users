@@ -24,11 +24,20 @@ import io.reactivex.Observable;
 /**
  * Interface that represents a data store from where data is retrieved.
  */
-public interface MovieDataStore {
+interface MovieDataStore {
   /**
    * Get an {@link Observable} which will emit a {@link MovieEntity} by its title.
    *
    * @param title The title to retrieve the movie data.
    */
-  Observable<MovieEntity> movieEntityDetails(final String title);
+  Observable<MovieEntity> movieEntityDetailsFromAPI(final String title);
+
+  /**
+   * Get an {@link Observable} which will emit a {@link MovieEntity} by its title.
+   *
+   * @param title The title to retrieve the movie data.
+   */
+  Observable<MovieEntity> movieEntityDetailsFromLOD(final String title);
+
+
 }

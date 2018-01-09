@@ -10,6 +10,7 @@ import com.birbit.android.jobqueue.config.Configuration;
 import com.birbit.android.jobqueue.di.DependencyInjector;
 import com.githubusers.data.DataManager;
 import com.githubusers.data.executor.JobExecutor;
+import com.githubusers.data.features.movie.MovieOkHttp;
 import com.githubusers.data.features.movie.OMDbServiceImpl;
 import com.githubusers.data.features.user.GitHubServiceImpl;
 import com.githubusers.data.utils.job.BaseJob;
@@ -79,6 +80,11 @@ public class DataModule {
   @Provides @Singleton
   GitHubServiceImpl providesGitHubServiceImpl(Retrofit retrofit, ThreadExecutor threadExecutor){
     return new GitHubServiceImpl(retrofit,threadExecutor);
+  }
+
+  @Provides @Singleton
+  MovieOkHttp providesMovieOkHttp(){
+    return new MovieOkHttp();
   }
 
   @Provides @Singleton

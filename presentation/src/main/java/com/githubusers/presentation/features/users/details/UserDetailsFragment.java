@@ -150,7 +150,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
 
   @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
   public void onMessageEvent(ArgumentEvent event) {
-    currentUserId = (String) event.getArgument();
+    currentUserId = (String) event.getArgument1();
     this.loadUserDetails();
   }
 

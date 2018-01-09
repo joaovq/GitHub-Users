@@ -51,4 +51,10 @@ public class MovieDataStoreFactory {
     return diskMovieDataStore;
   }
 
+  /**
+   * Creates a {@link MovieDataStore for remote manipulation
+   */
+  public MovieDataStore createCloudDataStore() {
+    return cloudMovieDataStore;
+  }
 }

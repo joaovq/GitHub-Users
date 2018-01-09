@@ -14,5 +14,12 @@ public interface MovieRepository {
    *
    * @param title The title of the wanted movie
    */
-  Observable<Movie> movie(final String title);
+  Observable<Movie> movieFromAPI(final String title);
+
+  /**
+   * Get an {@link Observable} which will emit a {@link Movie}.
+   *
+   * @param title The title of the wanted movie
+   */
+  Observable<Movie> movieFromLOD(final String title);
 }

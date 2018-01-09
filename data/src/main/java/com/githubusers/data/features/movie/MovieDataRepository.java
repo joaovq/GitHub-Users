@@ -20,7 +20,6 @@ import com.githubusers.data.DataManager;
 import com.githubusers.data.di.components.DaggerMovieDataComponent;
 import com.githubusers.data.di.components.MovieDataComponent;
 import com.githubusers.data.di.modules.MovieDataModule;
-import com.githubusers.data.di.modules.UserDataModule;
 import com.sample.githubusers.domain.features.movie.Movie;
 import com.sample.githubusers.domain.features.movie.MovieRepository;
 
@@ -36,8 +35,6 @@ public class MovieDataRepository implements MovieRepository {
   @Inject public MovieDataStoreFactory dataStoreFactory;
   @Inject public MovieEntityDataMapper entityDataMapper;
 
-  private MovieDataComponent dataComponent;
-
   /**
    * Constructs a {@link MovieRepository}.
    *
@@ -48,16 +45,22 @@ public class MovieDataRepository implements MovieRepository {
 
 
   private void initializeInjector(){
-    this.dataComponent = DaggerMovieDataComponent.builder()
+    MovieDataComponent dataComponent = DaggerMovieDataComponent.builder()
             .dataComponent(DataManager.getComponent())
             .movieDataModule(new MovieDataModule())
             .build();
-    this.dataComponent.inject(this);
+    dataComponent.inject(this);
   }
 
   @Override
-  public Observable<Movie> movie(String title) {
+  public Observable<Movie> movieFromAPI(String title) {
     final MovieDataStore dataStore = this.dataStoreFactory.create(title);
-    return dataStore.movieEntityDetails(title).map(this.entityDataMapper::transformToMovie);
+    return dataStore.movieEntityDetailsFromAPI(title).map(this.entityDataMapper::transformToMovie);
+  }
+
+  @Override
+  public Observable<Movie> movieFromLOD(String title) {
+    final MovieDataStore dataStore = this.dataStoreFactory.createCloudDataStore();
+    return dataStore.movieEntityDetailsFromLOD(title).map(this.entityDataMapper::transformToMovie);
   }
 }

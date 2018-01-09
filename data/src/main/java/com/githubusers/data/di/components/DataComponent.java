@@ -2,6 +2,7 @@ package com.githubusers.data.di.components;
 
 import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.data.di.modules.DataModule;
+import com.githubusers.data.features.movie.MovieOkHttp;
 import com.githubusers.data.features.movie.OMDbServiceImpl;
 import com.githubusers.data.features.user.GetUsersJob;
 import com.githubusers.data.features.user.GitHubServiceImpl;
@@ -20,6 +21,7 @@ public interface DataComponent {
   GitHubServiceImpl gitHubService();
   OMDbServiceImpl omdbService();
   NetworkInfoUtils networkInfoUtils();
+  MovieOkHttp movieOkHtpp();
 
   void inject(GetUsersJob job);
 }

@@ -23,7 +23,8 @@
     <string name="edit_title">Title</string>
 
     //Buttons
-    <string name="btn_search">Search</string>
+    <string name="btn_search_api">Search from API</string>
+    <string name="btn_search_lod">Search from LOD</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_history">See history</string>
 

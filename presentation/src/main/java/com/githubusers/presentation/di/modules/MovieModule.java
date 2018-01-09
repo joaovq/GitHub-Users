@@ -19,7 +19,8 @@ import com.githubusers.presentation.di.PerActivity;
 import com.sample.githubusers.domain.executor.PostExecutionThread;
 import com.sample.githubusers.domain.executor.ThreadExecutor;
 import com.sample.githubusers.domain.features.UseCase;
-import com.sample.githubusers.domain.features.movie.GetMovie;
+import com.sample.githubusers.domain.features.movie.GetMovieFromAPI;
+import com.sample.githubusers.domain.features.movie.GetMovieFromLOD;
 import com.sample.githubusers.domain.features.movie.MovieRepository;
 
 import javax.inject.Named;
@@ -28,18 +29,26 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Dagger module that provides movie related collaborators.
+ * Dagger module that provides movieFromAPI related collaborators.
  */
 @Module
 public class MovieModule {
 
     public MovieModule() {}
 
-    @Provides @PerActivity @Named(GetMovie.NAME)
-    UseCase providesGetMovieUseCase(
+    @Provides @PerActivity @Named(GetMovieFromAPI.NAME)
+    UseCase providesGetMovieFromAPIUseCase(
             MovieRepository movieRepository,
             ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
-        return new GetMovie(movieRepository, threadExecutor, postExecutionThread);
+        return new GetMovieFromAPI(movieRepository, threadExecutor, postExecutionThread);
+    }
+
+    @Provides @PerActivity @Named(GetMovieFromLOD.NAME)
+    UseCase providesGetMovieFromLODUseCase(
+            MovieRepository movieRepository,
+            ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetMovieFromLOD(movieRepository, threadExecutor, postExecutionThread);
     }
 }

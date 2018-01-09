@@ -8,11 +8,11 @@ import com.githubusers.presentation.view.LoadDataView;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
- * In this case is used as a view representing a movie info.
+ * In this case is used as a view representing a movieFromAPI info.
  */
 public interface MovieDetailsView extends LoadDataView {
   /**
-   * Render a movie in the UI.
+   * Render a movieFromAPI in the UI.
    *
    * @param movie The {@link MovieModel} that will be shown.
    */

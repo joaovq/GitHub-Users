@@ -42,8 +42,13 @@ public class DiskMovieDataStore implements MovieDataStore {
   }
 
   @Override
-  public Observable<MovieEntity> movieEntityDetails(final String title) {
+  public Observable<MovieEntity> movieEntityDetailsFromAPI(final String title) {
     return realmMovieEntityImpl.getMovie(title);
+  }
+
+  @Override
+  public Observable<MovieEntity> movieEntityDetailsFromLOD(String title) {
+    return null;
   }
 
   @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
@@ -52,7 +57,7 @@ public class DiskMovieDataStore implements MovieDataStore {
   }
 
   /**
-   * Check if movie has information saved in cache
+   * Check if movieFromAPI has information saved in cache
    * @param title User's id
    * @return {@link Boolean}
    */

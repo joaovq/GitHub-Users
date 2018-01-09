@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
   @NotEmpty @Bind(R.id.edit_search) EditText serachEditText;
 
   private Validator validator;
+  private String currentButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,15 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
 
   }
 
-  @OnClick(R.id.btn_search)
-  public void onSearchButtonClicked() {
+  @OnClick(R.id.btn_search_api)
+  public void onSearchAPIButtonClicked() {
+    currentButton = "API";
+    validator.validate();
+  }
+
+  @OnClick(R.id.btn_search_lod)
+  public void onSearchALODButtonClicked() {
+    currentButton = "LOD";
     validator.validate();
   }
 
@@ -59,7 +67,7 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
   public void onValidationSucceeded() {
     String title = serachEditText.getText().toString();
     this.navigator.navigateToMovieDetails(this);
-    EventBus.getDefault().postSticky(new ArgumentEvent(title));
+    EventBus.getDefault().postSticky(new ArgumentEvent(title, currentButton));
     clearEditTexts();
 
   }

@@ -68,6 +68,7 @@ dependencies {
     compile dataDependencies.dagger
     compile dataDependencies.retrofitRxAdapter
     compile dataDependencies.retrofitGsonConverter
+    compile dataDependencies.okHttp3
 
     provided dataDependencies.lombok
 
