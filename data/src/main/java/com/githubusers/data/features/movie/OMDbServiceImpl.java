@@ -20,7 +20,7 @@ public class OMDbServiceImpl {
     this.threadExecutor = threadExecutor;
   }
 
-  public Observable<MovieEntity> getMovie(String title){
+  Observable<MovieEntity> getMovie(String title){
     OMDbService service = retrofit.create(OMDbService.class);
     Observable<MovieEntity> result = service.getMovie(title, apiKey);
     result.subscribeOn(Schedulers.from(threadExecutor))

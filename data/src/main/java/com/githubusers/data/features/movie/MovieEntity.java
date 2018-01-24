@@ -3,6 +3,8 @@ package com.githubusers.data.features.movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.Data;
 /**
  * Class that represents a movieFromAPI
  */
-public class MovieEntity {
+class MovieEntity {
   @Expose
   private String Released;
 
@@ -22,9 +24,6 @@ public class MovieEntity {
 
   @Expose
   private String imdbVotes;
-
-//  @Expose
-//  private List<String> Ratings;
 
   @Expose
   private String Runtime;
@@ -214,12 +213,15 @@ public class MovieEntity {
     Rated = rated;
   }
 
-  public String getActors() {
-    return Actors;
+  public List<String> getActors() {
+    String [] actors = Actors.split(",");
+    return Arrays.asList(actors);
   }
 
-  public void setActors(String actors) {
-    Actors = actors;
+  public void setActors(List<String> actors) {
+    for(String actor : actors) {
+      Actors += (actor + ",");
+    }
   }
 
   public String getPlot() {
