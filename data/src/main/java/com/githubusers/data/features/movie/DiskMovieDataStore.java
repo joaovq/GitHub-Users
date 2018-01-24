@@ -51,6 +51,11 @@ public class DiskMovieDataStore implements MovieDataStore {
     return null;
   }
 
+  @Override
+  public Observable<MovieEntity> movieEntityDetailsFromWebsite(String title) {
+    return null;
+  }
+
   @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
   public void addMovie(MovieEntity movieEntity){
     realmMovieEntityImpl.addMovie(movieEntity);

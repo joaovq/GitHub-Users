@@ -34,8 +34,9 @@ public class CloudMovieDataStore implements MovieDataStore {
   @Getter
   private String title;
 
-  private final OMDbServiceImpl omdbService;
-  private final MovieOkHttp movieOkHttp;
+  private final OMDbServiceImpl   omdbService;
+  private final MovieOkHttp       movieOkHttp;
+  private final WebExtractor      webExtractor;
   private final NetworkInfoUtils  networkInfoUtils;
   private final JobManager        jobManager;
 
@@ -46,9 +47,10 @@ public class CloudMovieDataStore implements MovieDataStore {
   @Inject
   public CloudMovieDataStore(OMDbServiceImpl omdbService,
                              MovieOkHttp movieOkHttp,
-                             JobManager jobManager,
+                             WebExtractor webExtractor, JobManager jobManager,
                              NetworkInfoUtils networkInfoUtils) {
     this.omdbService = omdbService;
+    this.webExtractor = webExtractor;
     this.networkInfoUtils = networkInfoUtils;
     this.jobManager = jobManager;
     this.movieOkHttp = movieOkHttp;
@@ -84,6 +86,17 @@ public class CloudMovieDataStore implements MovieDataStore {
     this.title = title;
     if(networkInfoUtils.isConnected())
       return movieOkHttp.getMovie(title);
+    else {
+      movieEntityDetailsJobQueue();
+      return Observable.empty();
+    }
+  }
+
+  @Override
+  public Observable<MovieEntity> movieEntityDetailsFromWebsite(String title) {
+    this.title = title;
+    if (networkInfoUtils.isConnected())
+      return webExtractor.getMovie(title);
     else {
       movieEntityDetailsJobQueue();
       return Observable.empty();

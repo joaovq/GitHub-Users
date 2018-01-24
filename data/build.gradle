@@ -47,7 +47,7 @@ android {
         disable 'InvalidPackage'  // Some libraries have issues with this
         disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
     }
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 }
 
 dependencies {
@@ -69,6 +69,7 @@ dependencies {
     compile dataDependencies.retrofitRxAdapter
     compile dataDependencies.retrofitGsonConverter
     compile dataDependencies.okHttp3
+    compile dataDependencies.jsoup
 
     provided dataDependencies.lombok
 

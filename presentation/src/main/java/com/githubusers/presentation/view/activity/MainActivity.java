@@ -46,8 +46,14 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
   }
 
   @OnClick(R.id.btn_search_lod)
-  public void onSearchALODButtonClicked() {
+  public void onSearchLODButtonClicked() {
     currentButton = "LOD";
+    validator.validate();
+  }
+
+  @OnClick(R.id.btn_search_website)
+  public void onSearchWebsiteButtonClicked() {
+    currentButton = "WEB";
     validator.validate();
   }
 

@@ -21,6 +21,7 @@ import com.sample.githubusers.domain.executor.ThreadExecutor;
 import com.sample.githubusers.domain.features.UseCase;
 import com.sample.githubusers.domain.features.movie.GetMovieFromAPI;
 import com.sample.githubusers.domain.features.movie.GetMovieFromLOD;
+import com.sample.githubusers.domain.features.movie.GetMovieFromWebsite;
 import com.sample.githubusers.domain.features.movie.MovieRepository;
 
 import javax.inject.Named;
@@ -50,5 +51,13 @@ public class MovieModule {
             ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
         return new GetMovieFromLOD(movieRepository, threadExecutor, postExecutionThread);
+    }
+
+    @Provides @PerActivity @Named(GetMovieFromWebsite.NAME)
+    UseCase providesGetMovieFromWebsiteUseCase(
+            MovieRepository movieRepository,
+            ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetMovieFromWebsite(movieRepository, threadExecutor, postExecutionThread);
     }
 }

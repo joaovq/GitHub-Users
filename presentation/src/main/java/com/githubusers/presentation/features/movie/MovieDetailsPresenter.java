@@ -26,6 +26,7 @@ import com.sample.githubusers.domain.features.DefaultObserver;
 import com.sample.githubusers.domain.features.UseCase;
 import com.sample.githubusers.domain.features.movie.GetMovieFromAPI;
 import com.sample.githubusers.domain.features.movie.GetMovieFromLOD;
+import com.sample.githubusers.domain.features.movie.GetMovieFromWebsite;
 import com.sample.githubusers.domain.features.movie.Movie;
 
 import javax.inject.Inject;
@@ -42,14 +43,17 @@ public class MovieDetailsPresenter implements Presenter {
 
   private final UseCase getMovieFromAPIUseCase;
   private final UseCase getMovieFromLODUseCase;
+  private final UseCase getMovieFromWebUseCase;
   private final MovieModelMapper modelMapper;
 
   @Inject
   MovieDetailsPresenter(@Named(GetMovieFromAPI.NAME) UseCase getMovieFromAPIUseCase,
                         @Named(GetMovieFromLOD.NAME) UseCase getMovieFromLODUseCase,
+                        @Named(GetMovieFromWebsite.NAME) UseCase getMovieFromWebUseCase,
                         MovieModelMapper modelMapper) {
     this.getMovieFromAPIUseCase = getMovieFromAPIUseCase;
     this.getMovieFromLODUseCase = getMovieFromLODUseCase;
+    this.getMovieFromWebUseCase = getMovieFromWebUseCase;
     this.modelMapper = modelMapper;
   }
 
@@ -78,10 +82,17 @@ public class MovieDetailsPresenter implements Presenter {
     this.hideViewRetry();
     this.showViewLoading();
 
-    if(button.equals("API"))
-      this.getMovieFromAPI(title);
-    else if(button.equals("LOD"))
-      this.getMovieFromLOD(title);
+    switch (button) {
+      case "API":
+        this.getMovieFromAPI(title);
+        break;
+      case "LOD":
+        this.getMovieFromLOD(title);
+        break;
+      case "WEB":
+        this.getMovieFromWeb(title);
+        break;
+    }
   }
 
   private void getMovieFromAPI(String title) {
@@ -90,6 +101,10 @@ public class MovieDetailsPresenter implements Presenter {
 
   private void getMovieFromLOD(String title) {
     this.getMovieFromLODUseCase.execute(new MovieObserver(), GetMovieFromLOD.Params.forMovie(title));
+  }
+
+  private void getMovieFromWeb(String title) {
+    this.getMovieFromWebUseCase.execute(new MovieObserver(), GetMovieFromWebsite.Params.forMovie(title));
   }
 
   private void showViewLoading() {
