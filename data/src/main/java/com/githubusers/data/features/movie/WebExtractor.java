@@ -1,7 +1,5 @@
 package com.githubusers.data.features.movie;
 
-import android.util.Log;
-
 import com.githubusers.data.exception.MovieNotFoundException;
 
 import org.jsoup.Jsoup;
@@ -25,12 +23,12 @@ public class WebExtractor {
     /**
      * Função para conectar com a LOD e obter dados de um filme específico
      */
-    Observable<MovieEntity> getMovie(String title) {
+    Observable<MovieEntity> getMovie(String title, MovieEntity movieFromOMDb) {
         return Observable.create(emitter -> {
             MovieEntity movieEntity = new MovieEntity();
 
             trialNumber = 0;
-            String URL = createURL(title);
+            String URL = createURL(title, movieFromOMDb.getYear());
             while(URL != null) {
                 try {
                     Document wikipedia = Jsoup.connect(URL).get();
@@ -49,7 +47,7 @@ public class WebExtractor {
                         if(columnText.contains("Directed by"))
                             movieEntity.setDirector(getTextByTag(column,"td"));
                         else if(columnText.contains("Produced by"))
-                            movieEntity.setProductors(getTextsByTag(column,"li"));
+                            movieEntity.setProducers(getTextsByTag(column,"li"));
                         else if(columnText.contains("Written by"))
                             movieEntity.setWriters(getTextsByTag(column,"td"));
                         else if(columnText.contains("Starring"))
@@ -80,7 +78,7 @@ public class WebExtractor {
                     URL = null;
                 } catch (MovieNotFoundException e) {
                     e.printStackTrace();
-                    URL = createURL(title);
+                    URL = createURL(title, movieFromOMDb.getYear());
                 } catch (Exception e) {
                     e.printStackTrace();
                     URL = null;
@@ -95,7 +93,7 @@ public class WebExtractor {
     /**
      * Creates the wikipedia URL
      */
-    private String createURL(String title) {
+    private String createURL(String title, String year) {
         String URL = "https://en.wikipedia.org/wiki/";
         title = title.replace("+","_");
         switch (trialNumber) {
@@ -107,7 +105,8 @@ public class WebExtractor {
                 URL += title;
                 break;
             case 2:
-                //combinação de ano
+                title += "_(" + year + "_film)";
+                URL += title;
                 break;
             default:
                URL = null;

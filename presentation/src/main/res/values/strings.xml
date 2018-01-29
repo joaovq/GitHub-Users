@@ -26,6 +26,7 @@
     <string name="btn_search_api">Search from API</string>
     <string name="btn_search_lod">Search from LOD</string>
     <string name="btn_search_website">Search from Website</string>
+    <string name="btn_search_all">Search All</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_history">See history</string>
 

@@ -46,5 +46,12 @@ interface MovieDataStore {
    */
   Observable<MovieEntity> movieEntityDetailsFromWebsite(final String title);
 
+  /**
+   * Get an {@link Observable} which will emit a {@link MovieEntity} by its title.
+   *
+   * @param title The title to retrieve the movie data.
+   */
+  Observable<MovieEntity> movieEntityDetails(final String title);
+
 
 }

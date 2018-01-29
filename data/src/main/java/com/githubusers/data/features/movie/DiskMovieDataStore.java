@@ -56,6 +56,11 @@ public class DiskMovieDataStore implements MovieDataStore {
     return null;
   }
 
+  @Override
+  public Observable<MovieEntity> movieEntityDetails(String title) {
+    return null;
+  }
+
   @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
   public void addMovie(MovieEntity movieEntity){
     realmMovieEntityImpl.addMovie(movieEntity);
@@ -67,6 +72,6 @@ public class DiskMovieDataStore implements MovieDataStore {
    * @return {@link Boolean}
    */
   public static Boolean isCached(String title){
-    return RealmUserEntityImpl.isCached(title);
+    return RealmMovieEntityImpl.isCached(title);
   }
 }

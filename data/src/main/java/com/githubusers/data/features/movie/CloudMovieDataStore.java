@@ -15,11 +15,13 @@
  */
 package com.githubusers.data.features.movie;
 
+import android.util.Log;
+
 import com.birbit.android.jobqueue.JobManager;
-import com.githubusers.data.features.user.GetUsersJob;
-import com.githubusers.data.features.user.GitHubServiceImpl;
 import com.githubusers.data.features.user.UserDataStore;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
+
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -34,11 +36,14 @@ public class CloudMovieDataStore implements MovieDataStore {
   @Getter
   private String title;
 
+  private final String TAG = CloudMovieDataStore.class.getCanonicalName();
+
   private final OMDbServiceImpl   omdbService;
   private final MovieOkHttp       movieOkHttp;
   private final WebExtractor      webExtractor;
   private final NetworkInfoUtils  networkInfoUtils;
   private final JobManager        jobManager;
+  private final MovieJoiner       movieJoiner;
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
@@ -48,12 +53,13 @@ public class CloudMovieDataStore implements MovieDataStore {
   public CloudMovieDataStore(OMDbServiceImpl omdbService,
                              MovieOkHttp movieOkHttp,
                              WebExtractor webExtractor, JobManager jobManager,
-                             NetworkInfoUtils networkInfoUtils) {
+                             NetworkInfoUtils networkInfoUtils, MovieJoiner movieJoiner) {
     this.omdbService = omdbService;
     this.webExtractor = webExtractor;
     this.networkInfoUtils = networkInfoUtils;
     this.jobManager = jobManager;
     this.movieOkHttp = movieOkHttp;
+    this.movieJoiner = movieJoiner;
   }
 
   /**
@@ -62,19 +68,11 @@ public class CloudMovieDataStore implements MovieDataStore {
   private void movieEntityDetailsJobQueue(){
   }
 
-  /**
-   * Makes connection with REST API to get users
-   * @return {@link Observable} of {@link MovieEntity}
-   */
-  private Observable<MovieEntity> movieEntityDetailsRetrofit(){
-    return omdbService.getMovie(title);
-  }
-
   @Override
   public Observable<MovieEntity> movieEntityDetailsFromAPI(String title) {
     this.title = title;
     if(networkInfoUtils.isConnected())
-      return movieEntityDetailsRetrofit();
+      return omdbService.getMovie(title);
     else {
       movieEntityDetailsJobQueue();
       return Observable.empty();
@@ -85,7 +83,7 @@ public class CloudMovieDataStore implements MovieDataStore {
   public Observable<MovieEntity> movieEntityDetailsFromLOD(String title) {
     this.title = title;
     if(networkInfoUtils.isConnected())
-      return movieOkHttp.getMovie(title);
+      return movieOkHttp.getMovie(title, new MovieEntity());
     else {
       movieEntityDetailsJobQueue();
       return Observable.empty();
@@ -96,10 +94,28 @@ public class CloudMovieDataStore implements MovieDataStore {
   public Observable<MovieEntity> movieEntityDetailsFromWebsite(String title) {
     this.title = title;
     if (networkInfoUtils.isConnected())
-      return webExtractor.getMovie(title);
+      return webExtractor.getMovie(title, new MovieEntity());
     else {
       movieEntityDetailsJobQueue();
       return Observable.empty();
     }
+  }
+
+  @Override
+  public Observable<MovieEntity> movieEntityDetails(String title) {
+    this.title = title;
+    if (networkInfoUtils.isConnected()) {
+      return Observable.create(emitter -> {
+        omdbService.getMovie(title).subscribe(movieFromOMDb -> {
+          movieOkHttp.getMovie(title, movieFromOMDb).subscribe(movieFromLOD -> {
+            webExtractor.getMovie(title,movieFromOMDb).subscribe(movieFromWeb -> {MovieEntity finalMovieEntity = movieJoiner.execute(Arrays.asList(movieFromOMDb,movieFromLOD,movieFromWeb));
+              emitter.onNext(finalMovieEntity);
+              emitter.onComplete();
+            });
+          });
+        });
+      });
+    } else
+      return Observable.empty();
   }
 }

@@ -20,7 +20,7 @@ public class RealmMovieEntityImpl {
     this.dataMapper = dataMapper;
   }
 
-  public Observable<MovieEntity> getMovie(String title){
+  Observable<MovieEntity> getMovie(String title){
     Realm realm = Realm.getDefaultInstance();
     RealmResults<RealmMovieEntity> result = realm.where(RealmMovieEntity.class)
             .equalTo("Title",title)
@@ -29,7 +29,7 @@ public class RealmMovieEntityImpl {
     return Observable.just(dataMapper.transformToMovieEntity(result.get(0)));
   }
 
-  public void addMovie(MovieEntity movieEntity) {
+  void addMovie(MovieEntity movieEntity) {
     Realm realm = Realm.getDefaultInstance();
     realm.beginTransaction();
       RealmMovieEntity realmObject = realm.createObject(RealmMovieEntity.class);

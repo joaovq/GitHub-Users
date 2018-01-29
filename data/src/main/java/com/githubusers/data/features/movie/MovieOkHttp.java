@@ -25,7 +25,7 @@ public class MovieOkHttp {
     /**
      * Função para conectar com a LOD e obter dados de um filme específico
      */
-    Observable<MovieEntity> getMovie(String title) {
+    Observable<MovieEntity> getMovie(String title, MovieEntity movieFromOMDb) {
         return Observable.create(emitter -> {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
@@ -35,14 +35,14 @@ public class MovieOkHttp {
             Response response = null;
             try {
                 response = client.newCall(request).execute();
+                assert response != null;
+                MovieEntity movieEntity = fromJsonToMovieEntity(response.body().string());
+                emitter.onNext(movieEntity);
+                emitter.onComplete();
             } catch (Exception e) {
                 e.printStackTrace();
                 emitter.onError(e);
             }
-            assert response != null;
-            MovieEntity movieEntity = fromJsonToMovieEntity(response.body().string());
-            emitter.onNext(movieEntity);
-            emitter.onComplete();
         });
     }
 

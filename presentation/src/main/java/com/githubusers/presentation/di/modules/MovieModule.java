@@ -19,6 +19,7 @@ import com.githubusers.presentation.di.PerActivity;
 import com.sample.githubusers.domain.executor.PostExecutionThread;
 import com.sample.githubusers.domain.executor.ThreadExecutor;
 import com.sample.githubusers.domain.features.UseCase;
+import com.sample.githubusers.domain.features.movie.GetMovie;
 import com.sample.githubusers.domain.features.movie.GetMovieFromAPI;
 import com.sample.githubusers.domain.features.movie.GetMovieFromLOD;
 import com.sample.githubusers.domain.features.movie.GetMovieFromWebsite;
@@ -59,5 +60,13 @@ public class MovieModule {
             ThreadExecutor threadExecutor,
             PostExecutionThread postExecutionThread) {
         return new GetMovieFromWebsite(movieRepository, threadExecutor, postExecutionThread);
+    }
+
+    @Provides @PerActivity @Named(GetMovie.NAME)
+    UseCase providesGetMovieUseCase(
+            MovieRepository movieRepository,
+            ThreadExecutor threadExecutor,
+            PostExecutionThread postExecutionThread) {
+        return new GetMovie(movieRepository, threadExecutor, postExecutionThread);
     }
 }

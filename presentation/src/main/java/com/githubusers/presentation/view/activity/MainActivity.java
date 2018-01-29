@@ -57,6 +57,12 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
     validator.validate();
   }
 
+  @OnClick(R.id.btn_search_all)
+  public void onSearchAllButtonClicked() {
+    currentButton = "ALL";
+    validator.validate();
+  }
+
   @OnClick(R.id.btn_history)
   public void onHistoryButtonClicked() {
     this.navigator.navigateToUserList(this);

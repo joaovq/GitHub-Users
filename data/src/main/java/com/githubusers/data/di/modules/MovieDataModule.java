@@ -6,6 +6,7 @@ import com.githubusers.data.features.movie.CloudMovieDataStore;
 import com.githubusers.data.features.movie.DiskMovieDataStore;
 import com.githubusers.data.features.movie.MovieDataStoreFactory;
 import com.githubusers.data.features.movie.MovieEntityDataMapper;
+import com.githubusers.data.features.movie.MovieJoiner;
 import com.githubusers.data.features.movie.MovieOkHttp;
 import com.githubusers.data.features.movie.OMDbServiceImpl;
 import com.githubusers.data.features.movie.RealmMovieEntityImpl;
@@ -27,6 +28,11 @@ public class MovieDataModule {
   }
 
   @Provides @PerRepository
+  MovieJoiner providesMovieJoiner(){
+    return new MovieJoiner();
+  }
+
+  @Provides @PerRepository
   MovieEntityDataMapper providesMovieEntityDataMapper(){
     return new MovieEntityDataMapper();
   }
@@ -42,8 +48,8 @@ public class MovieDataModule {
   }
 
   @Provides @PerRepository
-  CloudMovieDataStore providesCloudMovieDataStore(OMDbServiceImpl omDbService, WebExtractor webExtractor, MovieOkHttp movieOkHttp, JobManager jobManager, NetworkInfoUtils networkInfoUtils){
-    return new CloudMovieDataStore(omDbService,movieOkHttp, webExtractor, jobManager,networkInfoUtils);
+  CloudMovieDataStore providesCloudMovieDataStore(OMDbServiceImpl omDbService, WebExtractor webExtractor, MovieJoiner movieJoiner, MovieOkHttp movieOkHttp, JobManager jobManager, NetworkInfoUtils networkInfoUtils){
+    return new CloudMovieDataStore(omDbService,movieOkHttp, webExtractor, jobManager,networkInfoUtils, movieJoiner);
   }
 
   @Provides @PerRepository

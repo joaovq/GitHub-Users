@@ -69,4 +69,10 @@ public class MovieDataRepository implements MovieRepository {
     final MovieDataStore dataStore = this.dataStoreFactory.createCloudDataStore();
     return dataStore.movieEntityDetailsFromWebsite(title).map(this.entityDataMapper::transformToMovie);
   }
+
+  @Override
+  public Observable<Movie> movie(String title) {
+    final MovieDataStore dataStore = this.dataStoreFactory.create(title);
+    return dataStore.movieEntityDetails(title).map(this.entityDataMapper::transformToMovie);
+  }
 }

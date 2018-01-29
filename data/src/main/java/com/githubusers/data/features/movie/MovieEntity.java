@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Class that represents a movieFromAPI
+ * Class that represents a movie
  */
 class MovieEntity {
   @Expose
@@ -82,47 +82,51 @@ class MovieEntity {
   @Expose
   private String Director;
 
-  public String getBudget() {
-    return Budget;
-  }
-
-  public void setBudget(String budget) {
-    Budget = budget;
-  }
-
   private String Budget;
-
-  public List<String> getDistribution() {
-    return Distribution;
-  }
-
-  public void setDistribution(List<String> distributions) {
-    Distribution = distributions;
-  }
-
-  private List<String> Distribution;
-
-  public List<String> getCinematographers() {
-    return Cinematographers;
-  }
-
-  public void setCinematographers(List<String> cinematographers) {
-    Cinematographers = cinematographers;
-  }
 
   private List<String> Cinematographers;
 
-  public List<String> getEditors() {
-    return Editors;
-  }
-
-  public void setEditors(List<String> editors) {
-    Editors = editors;
-  }
+  private List<String> producers;
 
   private List<String> Editors;
 
-  public List<String> getMusicians() {
+  private List<String> Distribution;
+
+  private List<String> Musicians;
+
+  String getBudget() {
+    return Budget;
+  }
+
+  void setBudget(String budget) {
+    Budget = budget;
+  }
+
+  List<String> getDistribution() {
+    return Distribution;
+  }
+
+  void setDistribution(List<String> distributions) {
+    Distribution = distributions;
+  }
+
+  List<String> getCinematographers() {
+    return Cinematographers;
+  }
+
+  void setCinematographers(List<String> cinematographers) {
+    Cinematographers = cinematographers;
+  }
+
+  List<String> getEditors() {
+    return Editors;
+  }
+
+  void setEditors(List<String> editors) {
+    Editors = editors;
+  }
+
+  List<String> getMusicians() {
     return Musicians;
   }
 
@@ -130,19 +134,15 @@ class MovieEntity {
     Musicians = musicians;
   }
 
-  private List<String> Musicians;
-
-  public List<String> getProductors() {
-    return productors;
+  List<String> getProducers() {
+    return producers;
   }
 
-  void setProductors(List<String> productors) {
-    this.productors = productors;
+  void setProducers(List<String> producers) {
+    this.producers = producers;
   }
 
-  private List<String> productors;
-
-  public String getReleased() {
+  String getReleased() {
     return Released;
   }
 
@@ -150,7 +150,7 @@ class MovieEntity {
     Released = released;
   }
 
-  public String getWebsite() {
+  String getWebsite() {
     return Website;
   }
 
@@ -174,59 +174,51 @@ class MovieEntity {
     this.imdbVotes = imdbVotes;
   }
 
-//  public List<String> getRatings() {
-//    return Ratings;
-//  }
-//
-//  public void setRatings(List<String> ratings) {
-//    Ratings = ratings;
-//  }
-
-  public String getRuntime() {
+  String getRuntime() {
     return Runtime;
   }
 
-  public void setRuntime(String runtime) {
+  void setRuntime(String runtime) {
     Runtime = runtime;
   }
 
-  public String getResponse() {
+  String getResponse() {
     return Response;
   }
 
-  public void setResponse(String response) {
+  void setResponse(String response) {
     Response = response;
   }
 
-  public String getPoster() {
+  String getPoster() {
     return Poster;
   }
 
-  public void setPoster(String poster) {
+  void setPoster(String poster) {
     Poster = poster;
   }
 
-  public String getImdbID() {
+  String getImdbID() {
     return imdbID;
   }
 
-  public void setImdbID(String imdbID) {
+  void setImdbID(String imdbID) {
     this.imdbID = imdbID;
   }
 
-  public String getCountry() {
+  String getCountry() {
     return Country;
   }
 
-  public void setCountry(String country) {
+  void setCountry(String country) {
     Country = country;
   }
 
-  public String getBoxOffice() {
+  String getBoxOffice() {
     return BoxOffice;
   }
 
-  public void setBoxOffice(String boxOffice) {
+  void setBoxOffice(String boxOffice) {
     BoxOffice = boxOffice;
   }
 
@@ -294,11 +286,11 @@ class MovieEntity {
     Metascore = metascore;
   }
 
-  public List<String> getWriters() {
+  List<String> getWriters() {
     return transformStringToList(Writer);
   }
 
-  public void setWriters(List<String> writers) {
+  void setWriters(List<String> writers) {
     Writer = transformListToString(writers);
 
   }
@@ -352,6 +344,8 @@ class MovieEntity {
   }
 
   private List<String> transformStringToList(String string) {
+    if(string == null)
+      return new ArrayList<>();
     String [] actors = string.split(",");
     return Arrays.asList(actors);
   }
