@@ -1,13 +1,10 @@
 package com.githubusers.data.features.movie;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * Class that represents a movieFromAPI
@@ -85,11 +82,71 @@ class MovieEntity {
   @Expose
   private String Director;
 
+  public String getBudget() {
+    return Budget;
+  }
+
+  public void setBudget(String budget) {
+    Budget = budget;
+  }
+
+  private String Budget;
+
+  public List<String> getDistribution() {
+    return Distribution;
+  }
+
+  public void setDistribution(List<String> distributions) {
+    Distribution = distributions;
+  }
+
+  private List<String> Distribution;
+
+  public List<String> getCinematographers() {
+    return Cinematographers;
+  }
+
+  public void setCinematographers(List<String> cinematographers) {
+    Cinematographers = cinematographers;
+  }
+
+  private List<String> Cinematographers;
+
+  public List<String> getEditors() {
+    return Editors;
+  }
+
+  public void setEditors(List<String> editors) {
+    Editors = editors;
+  }
+
+  private List<String> Editors;
+
+  public List<String> getMusicians() {
+    return Musicians;
+  }
+
+  void setMusicians(List<String> musicians) {
+    Musicians = musicians;
+  }
+
+  private List<String> Musicians;
+
+  public List<String> getProductors() {
+    return productors;
+  }
+
+  void setProductors(List<String> productors) {
+    this.productors = productors;
+  }
+
+  private List<String> productors;
+
   public String getReleased() {
     return Released;
   }
 
-  public void setReleased(String released) {
+  void setReleased(String released) {
     Released = released;
   }
 
@@ -214,14 +271,11 @@ class MovieEntity {
   }
 
   public List<String> getActors() {
-    String [] actors = Actors.split(",");
-    return Arrays.asList(actors);
+    return transformStringToList(Actors);
   }
 
   public void setActors(List<String> actors) {
-    for(String actor : actors) {
-      Actors += (actor + ",");
-    }
+    Actors = transformListToString(actors);
   }
 
   public String getPlot() {
@@ -240,12 +294,13 @@ class MovieEntity {
     Metascore = metascore;
   }
 
-  public String getWriter() {
-    return Writer;
+  public List<String> getWriters() {
+    return transformStringToList(Writer);
   }
 
-  public void setWriter(String writer) {
-    Writer = writer;
+  public void setWriters(List<String> writers) {
+    Writer = transformListToString(writers);
+
   }
 
   public String getProduction() {
@@ -286,5 +341,18 @@ class MovieEntity {
 
   public void setDirector(String director) {
     Director = director;
+  }
+
+  private String transformListToString(List<String> strings) {
+    String finalString = "";
+    for(String string : strings) {
+      finalString += (string + ",");
+    }
+    return finalString;
+  }
+
+  private List<String> transformStringToList(String string) {
+    String [] actors = string.split(",");
+    return Arrays.asList(actors);
   }
 }
