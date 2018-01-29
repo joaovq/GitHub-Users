@@ -2,6 +2,8 @@ package com.githubusers.data.features.movie;
 
 import android.util.Log;
 
+import com.githubusers.data.exception.MovieNotFoundException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,54 +19,72 @@ import io.reactivex.Observable;
  */
 public class WebExtractor {
     private final String TAG = WebExtractor.class.getCanonicalName();
+    private Integer trialNumber = 0;
+
+
     /**
      * Função para conectar com a LOD e obter dados de um filme específico
      */
     Observable<MovieEntity> getMovie(String title) {
         return Observable.create(emitter -> {
             MovieEntity movieEntity = new MovieEntity();
-            try {
-                Document wikipedia = Jsoup.connect("https://en.wikipedia.org/wiki/Titanic_(1997_film)").get();
-                Elements bodies = wikipedia.getElementsByTag("tbody");
-                Element infobox = bodies.get(0);
-                Elements columns = infobox.getElementsByTag("tr");
-                movieEntity.setTitle(Jsoup.parse(columns.get(0).html()).text());
-                for(Element column : columns) {
-                    String columnText = column.text();
-                    if(columnText.contains("Directed by"))
-                        movieEntity.setDirector(getTextByTag(column,"td"));
-                    else if(columnText.contains("Produced by"))
-                        movieEntity.setProductors(getTextsByTag(column,"li"));
-                    else if(columnText.contains("Written by"))
-                        movieEntity.setWriters(getTextsByTag(column,"td"));
-                    else if(columnText.contains("Starring"))
-                        movieEntity.setActors(getTextsByTag(column,"li"));
-                    else if(columnText.contains("Music By"))
-                        movieEntity.setMusicians(getTextsByTag(column,"td"));
-                    else if(columnText.contains("Cinematography"))
-                        movieEntity.setCinematographers(getTextsByTag(column,"td"));
-                    else if(columnText.contains("Edited By"))
-                        movieEntity.setEditors(getTextsByTag(column,"li"));
-                    else if(columnText.contains("Production company"))
-                        movieEntity.setProduction(getTextByTag(column,"td"));
-                    else if(columnText.contains("Distributed by"))
-                        movieEntity.setDistribution(getTextsByTag(column,"td"));
-                    else if(columnText.contains("Release date"))
-                        movieEntity.setReleased(getTextByTag(column,"td"));
-                    else if(columnText.contains("Running time"))
-                        movieEntity.setRuntime(getTextByTag(column,"td"));
-                    else if(columnText.contains("Country"))
-                        movieEntity.setCountry(getTextByTag(column,"td"));
-                    else if(columnText.contains("Language"))
-                        movieEntity.setLanguage(getTextByTag(column,"td"));
-                    else if(columnText.contains("Budget"))
-                        movieEntity.setBudget(getTextByTag(column,"td"));
-                    else if(columnText.contains("Box Office"))
-                        movieEntity.setBoxOffice(getTextByTag(column,"td"));
-                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            trialNumber = 0;
+            String URL = createURL(title);
+            while(URL != null) {
+                try {
+                    Document wikipedia = Jsoup.connect(URL).get();
+
+                    Elements bodies = wikipedia.getElementsByTag("tbody");
+                    Element infobox = bodies.get(0);
+
+                    if(!infobox.text().contains("Theatrical release poster"))
+                        throw new MovieNotFoundException ();
+
+                    Elements columns = infobox.getElementsByTag("tr");
+
+                    movieEntity.setTitle(Jsoup.parse(columns.get(0).html()).text());
+                    for(Element column : columns) {
+                        String columnText = column.text();
+                        if(columnText.contains("Directed by"))
+                            movieEntity.setDirector(getTextByTag(column,"td"));
+                        else if(columnText.contains("Produced by"))
+                            movieEntity.setProductors(getTextsByTag(column,"li"));
+                        else if(columnText.contains("Written by"))
+                            movieEntity.setWriters(getTextsByTag(column,"td"));
+                        else if(columnText.contains("Starring"))
+                            movieEntity.setActors(getTextsByTag(column,"li"));
+                        else if(columnText.contains("Music By"))
+                            movieEntity.setMusicians(getTextsByTag(column,"td"));
+                        else if(columnText.contains("Cinematography"))
+                            movieEntity.setCinematographers(getTextsByTag(column,"td"));
+                        else if(columnText.contains("Edited By"))
+                            movieEntity.setEditors(getTextsByTag(column,"li"));
+                        else if(columnText.contains("Production company"))
+                            movieEntity.setProduction(getTextByTag(column,"td"));
+                        else if(columnText.contains("Distributed by"))
+                            movieEntity.setDistribution(getTextsByTag(column,"td"));
+                        else if(columnText.contains("Release date"))
+                            movieEntity.setReleased(getTextByTag(column,"td"));
+                        else if(columnText.contains("Running time"))
+                            movieEntity.setRuntime(getTextByTag(column,"td"));
+                        else if(columnText.contains("Country"))
+                            movieEntity.setCountry(getTextByTag(column,"td"));
+                        else if(columnText.contains("Language"))
+                            movieEntity.setLanguage(getTextByTag(column,"td"));
+                        else if(columnText.contains("Budget"))
+                            movieEntity.setBudget(getTextByTag(column,"td"));
+                        else if(columnText.contains("Box Office"))
+                            movieEntity.setBoxOffice(getTextByTag(column,"td"));
+                    }
+                    URL = null;
+                } catch (MovieNotFoundException e) {
+                    e.printStackTrace();
+                    URL = createURL(title);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    URL = null;
+                }
             }
 
             emitter.onNext(movieEntity);
@@ -73,9 +93,31 @@ public class WebExtractor {
     }
 
     /**
+     * Creates the wikipedia URL
+     */
+    private String createURL(String title) {
+        String URL = "https://en.wikipedia.org/wiki/";
+        title = title.replace("+","_");
+        switch (trialNumber) {
+            case 0:
+                URL += title;
+                break;
+            case 1:
+                title += "_(film)";
+                URL += title;
+                break;
+            case 2:
+                //combinação de ano
+                break;
+            default:
+               URL = null;
+        }
+        trialNumber++;
+        return URL;
+    }
+
+    /**
      * Função para obter um texto a partir de uma tag
-     * @param tag
-     * @return
      */
     private String getTextByTag(Element column, String tag) {
         List<String> texts = getTextsByTag(column,tag);
@@ -86,8 +128,6 @@ public class WebExtractor {
 
     /**
      * Função para obter um texto a partir de uma tag
-     * @param tag
-     * @return
      */
     private List<String> getTextsByTag(Element column, String tag) {
         List<String> texts = new ArrayList<>();
