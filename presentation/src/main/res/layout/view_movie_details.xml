@@ -1,48 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/rl_details"
-              android:background="@android:color/white"
-              android:orientation="vertical"
-    >
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-  <ImageView
-      android:id="@+id/iv_cover"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/iv_cover_height"
-      android:background="@android:color/white"
-      />
-
-  <LinearLayout
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginLeft="@dimen/activity_horizontal_margin"
-      android:layout_marginRight="@dimen/activity_horizontal_margin"
-      android:orientation="vertical"
+      android:id="@+id/rl_details"
       android:background="@android:color/white"
+      android:orientation="vertical"
       >
-    <TextView
-        style="@style/AppTheme.TextViewTitle"
-        android:text="@string/text_movie_title"
-        />
-    <TextView
-        android:id="@+id/tv_movie_title"
+
+    <ImageView
+        android:id="@+id/iv_cover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:freezesText="true"
+        android:layout_height="@dimen/iv_cover_height"
+        android:background="@android:color/white"
         />
-    <TextView
-        style="@style/AppTheme.TextViewTitle"
-        android:text="@string/text_movie_year"
-        />
-    <TextView
-        android:id="@+id/tv_movie_year"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:freezesText="true"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        >
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_title"
+          />
+      <TextView
+          android:id="@+id/tv_movie_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true"
+          />
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_year"
+          />
+      <TextView
+          android:id="@+id/tv_movie_year"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true"
+          />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_released"
+          />
+      <TextView
+          android:id="@+id/tv_movie_released"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true"
+          />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_director"
+          />
+      <TextView
+          android:id="@+id/tv_movie_director"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_actors"
+          />
+      <TextView
+          android:id="@+id/tv_movie_actors"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_genre"
+          />
+      <TextView
+          android:id="@+id/tv_movie_genre"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_awards"
+          />
+      <TextView
+          android:id="@+id/tv_movie_awards"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_budget"
+          />
+      <TextView
+          android:id="@+id/tv_movie_budget"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_boxoffie"
+          />
+      <TextView
+          android:id="@+id/tv_movie_boxoffice"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_runtime"
+          />
+      <TextView
+          android:id="@+id/tv_movie_runtime"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_production"
+          />
+      <TextView
+          android:id="@+id/tv_movie_production"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_writters"
+          />
+      <TextView
+          android:id="@+id/tv_movie_writters"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_editors"
+          />
+      <TextView
+          android:id="@+id/tv_movie_editors"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_musicians"
+          />
+      <TextView
+          android:id="@+id/tv_movie_musicians"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_distribuion"
+          />
+      <TextView
+          android:id="@+id/tv_movie_distribuion"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_cinematographers"
+          />
+      <TextView
+          android:id="@+id/tv_movie_cinematographers"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_imdb_ratings"
+          />
+      <TextView
+          android:id="@+id/tv_movie_imdb_ratings"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_imdb_votes"
+          />
+      <TextView
+          android:id="@+id/tv_movie_imdb_votes"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_plot"
+          />
+      <TextView
+          android:id="@+id/tv_movie_plot"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+    </LinearLayout>
 
   </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
+
+

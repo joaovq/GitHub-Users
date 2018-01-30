@@ -48,6 +48,28 @@ public class MovieModelMapper {
         final MovieModel movieModel = new MovieModel();
         movieModel.setTitle(movie.getTitle());
         movieModel.setYear(movie.getYear());
+        movieModel.setReleased(movie.getReleased());
+        movieModel.setRuntime(movie.getRuntime());
+        movieModel.setAwards(movie.getAwards());
+        movieModel.setWebsite(movie.getWebsite());
+        movieModel.setBudget(movie.getBudget());
+        movieModel.setDistribution(movie.getDistribution());
+        movieModel.setDirector(movie.getDirector());
+        movieModel.setCinematographers(movie.getCinematographers());
+        movieModel.setEditors(movie.getEditors());
+        movieModel.setMusicians(movie.getMusicians());
+        movieModel.setProduction(movie.getProduction());
+        movieModel.setProducers(movie.getProducers());
+        movieModel.setImdbVotes(movie.getImdbVotes());
+        movieModel.setImdbRating(movie.getImdbRating());
+        movieModel.setPoster(movie.getPoster());
+        movieModel.setCountry(movie.getCountry());
+        movieModel.setBoxOffice(movie.getBoxOffice());
+        movieModel.setActors(movie.getActors());
+        movieModel.setPlot(movie.getPlot());
+        movieModel.setMetascore(movie.getMetascore());
+        movieModel.setWriters(movie.getWriters());
+        movieModel.setGenre(movie.getGenre());
 
         return movieModel;
     }

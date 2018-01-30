@@ -37,13 +37,30 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Inject MovieDetailsPresenter detailsPresenter;
   @Inject GlideLoader           glideLoader;
 
-  @Bind(R.id.iv_cover)        ImageView         coverImageView;
-  @Bind(R.id.tv_movie_title)  TextView          titleTextView;
-  @Bind(R.id.tv_movie_year)   TextView          yearTextView;
-  @Bind(R.id.rl_progress)     RelativeLayout    progressLayout;
-  @Bind(R.id.rl_retry)        RelativeLayout    retryLayout;
-  @Bind(R.id.rl_no_internet)  RelativeLayout    noInternetLayout;
-  @Bind(R.id.bt_retry)        Button            retryButton;
+  @Bind(R.id.iv_cover)                ImageView         coverImageView;
+  @Bind(R.id.tv_movie_title)          TextView          titleTextView;
+  @Bind(R.id.tv_movie_year)           TextView          yearTextView;
+  @Bind(R.id.tv_movie_released)       TextView          releasedTextView;
+  @Bind(R.id.tv_movie_runtime)        TextView          runtimeTextView;
+  @Bind(R.id.tv_movie_awards)         TextView          awardsTextView;
+  @Bind(R.id.tv_movie_director)       TextView          directorTextView;
+  @Bind(R.id.tv_movie_actors)         TextView          actorsTextView;
+  @Bind(R.id.tv_movie_budget)         TextView          budgetTextView;
+  @Bind(R.id.tv_movie_distribuion)    TextView          distribuitonTextView;
+  @Bind(R.id.tv_movie_cinematographers)TextView         cinematographersTextView;
+  @Bind(R.id.tv_movie_editors)        TextView          editorsTextView;
+  @Bind(R.id.tv_movie_musicians)      TextView          musiciansTextView;
+  @Bind(R.id.tv_movie_production)     TextView          productionTextView;
+  @Bind(R.id.tv_movie_imdb_votes)     TextView          imdbVotesTextView;
+  @Bind(R.id.tv_movie_imdb_ratings)   TextView          imdbRatingsTextView;
+  @Bind(R.id.tv_movie_boxoffice)      TextView          boxOfficeTextView;
+  @Bind(R.id.tv_movie_genre)          TextView          genreTextView;
+  @Bind(R.id.tv_movie_plot)          TextView           plotTextView;
+  @Bind(R.id.tv_movie_writters)       TextView          writtersTextView;
+  @Bind(R.id.rl_progress)             RelativeLayout    progressLayout;
+  @Bind(R.id.rl_retry)                RelativeLayout    retryLayout;
+  @Bind(R.id.rl_no_internet)          RelativeLayout    noInternetLayout;
+  @Bind(R.id.bt_retry)                Button            retryButton;
 
   private String currentMovieTitle;
   private String currentButton;
@@ -107,9 +124,25 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Override
   public void onMovie(MovieModel movieModel) {
     if (movieModel != null) {
-//      setUserAvatar(user.getAvatarUrl());
+      setUserAvatar(movieModel.getPoster());
       yearTextView.setText(movieModel.getYear());
       titleTextView.setText(movieModel.getTitle());
+      directorTextView.setText(movieModel.getDirector());
+      releasedTextView.setText(movieModel.getReleased());
+      runtimeTextView.setText(movieModel.getRuntime());
+      awardsTextView.setText(movieModel.getAwards());
+      actorsTextView.setText(movieModel.getActors().toString());
+      budgetTextView.setText(movieModel.getBudget());
+//      distribuitonTextView.setText(movieModel.getDistribution().toString());
+//      cinematographersTextView.setText(movieModel.getCinematographers().toString());
+//      editorsTextView.setText(movieModel.getEditors().toString());
+//      musiciansTextView.setText(movieModel.getMusicians().toString());
+      productionTextView.setText(movieModel.getProduction());
+      imdbVotesTextView.setText(movieModel.getImdbVotes());
+      imdbRatingsTextView.setText(movieModel.getImdbRating());
+      boxOfficeTextView.setText(movieModel.getBoxOffice());
+//      writtersTextView.setText(movieModel.getWriters().toString());
+      plotTextView.setText(movieModel.getPlot());
     }
   }
 

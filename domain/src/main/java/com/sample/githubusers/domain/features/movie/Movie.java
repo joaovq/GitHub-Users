@@ -1,5 +1,7 @@
 package com.sample.githubusers.domain.features.movie;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,8 +15,6 @@ public class Movie {
     private String Type;
 
     private String imdbVotes;
-
-    private List<String> Ratings;
 
     private String Runtime;
 
@@ -56,6 +56,66 @@ public class Movie {
 
     private String Director;
 
+    private String Budget;
+
+    private List<String> Cinematographers;
+
+    private List<String> producers;
+
+    private List<String> Editors;
+
+    private List<String> Distribution;
+
+    private List<String> Musicians;
+
+    public String getBudget() {
+        return Budget;
+    }
+
+    public void setBudget(String budget) {
+        Budget = budget;
+    }
+
+    public List<String> getDistribution() {
+        return Distribution;
+    }
+
+    public void setDistribution(List<String> distributions) {
+        Distribution = distributions;
+    }
+
+    public List<String> getCinematographers() {
+        return Cinematographers;
+    }
+
+    public void setCinematographers(List<String> cinematographers) {
+        Cinematographers = cinematographers;
+    }
+
+    public List<String> getEditors() {
+        return Editors;
+    }
+
+    public void setEditors(List<String> editors) {
+        Editors = editors;
+    }
+
+    public List<String> getMusicians() {
+        return Musicians;
+    }
+
+    public void setMusicians(List<String> musicians) {
+        Musicians = musicians;
+    }
+
+    public List<String> getProducers() {
+        return producers;
+    }
+
+    public void setProducers(List<String> producers) {
+        this.producers = producers;
+    }
+
     public String getReleased() {
         return Released;
     }
@@ -86,14 +146,6 @@ public class Movie {
 
     public void setImdbVotes(String imdbVotes) {
         this.imdbVotes = imdbVotes;
-    }
-
-    public List<String> getRatings() {
-        return Ratings;
-    }
-
-    public void setRatings(List<String> ratings) {
-        Ratings = ratings;
     }
 
     public String getRuntime() {
@@ -184,12 +236,12 @@ public class Movie {
         Rated = rated;
     }
 
-    public String getActors() {
-        return Actors;
+    public List<String> getActors() {
+        return transformStringToList(Actors);
     }
 
-    public void setActors(String actors) {
-        Actors = actors;
+    public void setActors(List<String> actors) {
+        Actors = transformListToString(actors);
     }
 
     public String getPlot() {
@@ -208,12 +260,13 @@ public class Movie {
         Metascore = metascore;
     }
 
-    public String getWriter() {
-        return Writer;
+    public List<String> getWriters() {
+        return transformStringToList(Writer);
     }
 
-    public void setWriter(String writer) {
-        Writer = writer;
+    public void setWriters(List<String> writers) {
+        Writer = transformListToString(writers);
+
     }
 
     public String getProduction() {
@@ -254,5 +307,20 @@ public class Movie {
 
     public void setDirector(String director) {
         Director = director;
+    }
+
+    private String transformListToString(List<String> strings) {
+        String finalString = "";
+        for(String string : strings) {
+            finalString += (string + ",");
+        }
+        return finalString;
+    }
+
+    private List<String> transformStringToList(String string) {
+        if(string == null)
+            return new ArrayList<>();
+        String [] actors = string.split(",");
+        return Arrays.asList(actors);
     }
 }
