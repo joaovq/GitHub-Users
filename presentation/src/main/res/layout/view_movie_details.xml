@@ -131,6 +131,16 @@
 
       <TextView
           style="@style/AppTheme.TextViewTitle"
+          android:text="@string/text_movie_country"
+          />
+      <TextView
+          android:id="@+id/tv_movie_country"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:freezesText="true" />
+
+      <TextView
+          style="@style/AppTheme.TextViewTitle"
           android:text="@string/text_movie_production"
           />
       <TextView
@@ -145,26 +155,6 @@
           />
       <TextView
           android:id="@+id/tv_movie_writters"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:freezesText="true" />
-
-      <TextView
-          style="@style/AppTheme.TextViewTitle"
-          android:text="@string/text_movie_editors"
-          />
-      <TextView
-          android:id="@+id/tv_movie_editors"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:freezesText="true" />
-
-      <TextView
-          style="@style/AppTheme.TextViewTitle"
-          android:text="@string/text_movie_musicians"
-          />
-      <TextView
-          android:id="@+id/tv_movie_musicians"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:freezesText="true" />

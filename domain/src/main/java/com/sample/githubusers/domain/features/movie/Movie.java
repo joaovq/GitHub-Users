@@ -148,12 +148,12 @@ public class Movie {
         this.imdbVotes = imdbVotes;
     }
 
-    public String getRuntime() {
-        return Runtime;
+    public List<String> getRuntimes() {
+        return transformStringToList(Runtime);
     }
 
-    public void setRuntime(String runtime) {
-        Runtime = runtime;
+    public void setRuntimes(List<String> runtime) {
+        Runtime = transformListToString(runtime);
     }
 
     public String getResponse() {
@@ -180,12 +180,12 @@ public class Movie {
         this.imdbID = imdbID;
     }
 
-    public String getCountry() {
-        return Country;
+    public List<String> getCountries() {
+        return transformStringToList(Country);
     }
 
-    public void setCountry(String country) {
-        Country = country;
+    public void setCountries(List<String> countries) {
+        Country = transformListToString(countries);
     }
 
     public String getBoxOffice() {

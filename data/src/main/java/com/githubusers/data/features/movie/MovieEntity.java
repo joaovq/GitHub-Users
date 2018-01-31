@@ -22,7 +22,6 @@ class MovieEntity {
   @Expose
   private String imdbVotes;
 
-  @Expose
   private String Runtime;
 
   @Expose
@@ -174,12 +173,12 @@ class MovieEntity {
     this.imdbVotes = imdbVotes;
   }
 
-  String getRuntime() {
-    return Runtime;
+  List<String> getRuntimes() {
+    return transformStringToList(Runtime);
   }
 
-  void setRuntime(String runtime) {
-    Runtime = runtime;
+  void setRuntimes(List<String> runtime) {
+    Runtime = transformListToString(runtime);
   }
 
   String getResponse() {
@@ -206,12 +205,16 @@ class MovieEntity {
     this.imdbID = imdbID;
   }
 
-  String getCountry() {
-    return Country;
+  List<String> getCountries() {
+    return transformStringToList(Country);
   }
 
   void setCountry(String country) {
     Country = country;
+  }
+
+  void setCountries(List<String> countries) {
+    Country = transformListToString(countries);
   }
 
   String getBoxOffice() {

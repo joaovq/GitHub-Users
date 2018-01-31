@@ -1,7 +1,9 @@
 package com.githubusers.data.features.movie;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -13,6 +15,7 @@ import java.util.TreeSet;
  */
 public class MovieJoiner {
     private Map<String,Set<String>> attributes;
+    private Map<String,String> countriesISO3;
 
     /**
      * Method to add an attribute
@@ -51,11 +54,16 @@ public class MovieJoiner {
             for(String newAttribute : newAttributes) {
                 Boolean shouldAddAttribute = true;
                 for (String currentAttribute : currentAttributes) {
+                    switch (field) {
+                        case "runtimes":
+                            newAttribute = getRuntimeNumber(newAttribute);
+                            currentAttribute = getRuntimeNumber(currentAttribute);
+                            break;
+                    }
                     if (StringMatching.editDistance(currentAttribute, newAttribute) < 3) {
                         shouldAddAttribute = false;
                         break;
-                    }
-                    else {
+                    } else {
                         String currentAttributePhoneticCode = StringMatching.soundex(currentAttribute);
                         String attributesToAddPhoneticCode = StringMatching.soundex(newAttribute);
                         if (StringMatching.editDistance(currentAttributePhoneticCode, attributesToAddPhoneticCode) <= 1) {
@@ -74,10 +82,34 @@ public class MovieJoiner {
     }
 
     /**
+     * Methods get only numbers of runtime
+     */
+    private String getRuntimeNumber(String runtime) {
+        return runtime.replaceAll("\\D+","");
+
+    }
+
+    /**
+     * Method to create countrie's iso code
+     */
+    private Map<String,String> createISO3Countries() {
+        final Locale englishLocale = new Locale("en", "EN");
+        Map<String,String> map = new HashMap<>();
+        for (Locale locale : englishLocale.getAvailableLocales()) {
+            try {
+                map.put(locale.getDisplayCountry(), locale.getISO3Country());
+            } catch (Exception e) {e.printStackTrace();}
+        }
+        map.put("United Kigdom","UK");
+        return map;
+    }
+
+    /**
      * Method to execute movie data
      */
     MovieEntity execute(List<MovieEntity> movies) {
-        this.attributes = new TreeMap<>();
+        attributes = new TreeMap<>();
+        countriesISO3 = createISO3Countries();
 
         MovieEntity finalMovieEntity = new MovieEntity();
 
@@ -85,8 +117,6 @@ public class MovieJoiner {
             addAttribute("title", movieEntity.getTitle());
             addAttribute("released", movieEntity.getReleased());
             addAttribute("website", movieEntity.getWebsite());
-            addAttribute("runtime", movieEntity.getRuntime());
-            addAttribute("country", movieEntity.getCountry());
             addAttribute("boxoffice", movieEntity.getBoxOffice());
             addAttribute("year", movieEntity.getYear());
             addAttribute("language", movieEntity.getLanguage());
@@ -101,6 +131,8 @@ public class MovieJoiner {
             addAttribute("imdbvotes",movieEntity.getImdbVotes());
             addAttribute("production", movieEntity.getProduction());
 
+            addAttributes("countries", movieEntity.getCountries());
+            addAttributes("runtimes", movieEntity.getRuntimes());
             addAttributes("writters", movieEntity.getWriters());
             addAttributes("actors", movieEntity.getActors());
             addAttributes("producers", movieEntity.getProducers());
@@ -157,8 +189,18 @@ public class MovieJoiner {
                 case "website":
                     finalMovieEntity.setWebsite(selectedAttributes.get(attributeIndex));
                     break;
-                case "runtime":
-                    finalMovieEntity.setRuntime(selectedAttributes.get(attributeIndex));
+                case "runtimes":
+                    finalMovieEntity.setRuntimes(selectedAttributes);
+                    break;
+                case "countries":
+                    selectedAttributes.removeIf(selectedAttribute -> {
+                        for(String country : countriesISO3.keySet()) {
+                            if(StringMatching.editDistance(selectedAttribute,countriesISO3.get(country)) <= 1)
+                                return true;
+                        }
+                        return false;
+                    });
+                    finalMovieEntity.setCountries(selectedAttributes);
                     break;
                 case "boxoffice":
                     finalMovieEntity.setBoxOffice(selectedAttributes.get(attributeIndex));

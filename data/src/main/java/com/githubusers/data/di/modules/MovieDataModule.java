@@ -8,9 +8,9 @@ import com.githubusers.data.features.movie.MovieDataStoreFactory;
 import com.githubusers.data.features.movie.MovieEntityDataMapper;
 import com.githubusers.data.features.movie.MovieJoiner;
 import com.githubusers.data.features.movie.MovieOkHttp;
+import com.githubusers.data.features.movie.MovieWebExtractor;
 import com.githubusers.data.features.movie.OMDbServiceImpl;
 import com.githubusers.data.features.movie.RealmMovieEntityImpl;
-import com.githubusers.data.features.movie.WebExtractor;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
 
 import dagger.Module;
@@ -23,8 +23,8 @@ public class MovieDataModule {
   public MovieDataModule(){}
 
   @Provides @PerRepository
-  WebExtractor providesWebExtractor(){
-    return new WebExtractor();
+  MovieWebExtractor providesWebExtractor(){
+    return new MovieWebExtractor();
   }
 
   @Provides @PerRepository
@@ -48,8 +48,8 @@ public class MovieDataModule {
   }
 
   @Provides @PerRepository
-  CloudMovieDataStore providesCloudMovieDataStore(OMDbServiceImpl omDbService, WebExtractor webExtractor, MovieJoiner movieJoiner, MovieOkHttp movieOkHttp, JobManager jobManager, NetworkInfoUtils networkInfoUtils){
-    return new CloudMovieDataStore(omDbService,movieOkHttp, webExtractor, jobManager,networkInfoUtils, movieJoiner);
+  CloudMovieDataStore providesCloudMovieDataStore(OMDbServiceImpl omDbService, MovieWebExtractor movieWebExtractor, MovieJoiner movieJoiner, MovieOkHttp movieOkHttp, JobManager jobManager, NetworkInfoUtils networkInfoUtils){
+    return new CloudMovieDataStore(omDbService,movieOkHttp, movieWebExtractor, jobManager,networkInfoUtils, movieJoiner);
   }
 
   @Provides @PerRepository

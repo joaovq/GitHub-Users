@@ -24,6 +24,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -48,8 +50,6 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Bind(R.id.tv_movie_budget)         TextView          budgetTextView;
   @Bind(R.id.tv_movie_distribuion)    TextView          distribuitonTextView;
   @Bind(R.id.tv_movie_cinematographers)TextView         cinematographersTextView;
-  @Bind(R.id.tv_movie_editors)        TextView          editorsTextView;
-  @Bind(R.id.tv_movie_musicians)      TextView          musiciansTextView;
   @Bind(R.id.tv_movie_production)     TextView          productionTextView;
   @Bind(R.id.tv_movie_imdb_votes)     TextView          imdbVotesTextView;
   @Bind(R.id.tv_movie_imdb_ratings)   TextView          imdbRatingsTextView;
@@ -57,6 +57,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
   @Bind(R.id.tv_movie_genre)          TextView          genreTextView;
   @Bind(R.id.tv_movie_plot)          TextView           plotTextView;
   @Bind(R.id.tv_movie_writters)       TextView          writtersTextView;
+  @Bind(R.id.tv_movie_country)        TextView          countryTextView;
   @Bind(R.id.rl_progress)             RelativeLayout    progressLayout;
   @Bind(R.id.rl_retry)                RelativeLayout    retryLayout;
   @Bind(R.id.rl_no_internet)          RelativeLayout    noInternetLayout;
@@ -129,20 +130,20 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
       titleTextView.setText(movieModel.getTitle());
       directorTextView.setText(movieModel.getDirector());
       releasedTextView.setText(movieModel.getReleased());
-      runtimeTextView.setText(movieModel.getRuntime());
+      runtimeTextView.setText(transforListToString(movieModel.getRuntimes()));
       awardsTextView.setText(movieModel.getAwards());
-      actorsTextView.setText(movieModel.getActors().toString());
+      actorsTextView.setText(transforListToString(movieModel.getActors()));
       budgetTextView.setText(movieModel.getBudget());
-//      distribuitonTextView.setText(movieModel.getDistribution().toString());
-//      cinematographersTextView.setText(movieModel.getCinematographers().toString());
-//      editorsTextView.setText(movieModel.getEditors().toString());
-//      musiciansTextView.setText(movieModel.getMusicians().toString());
+      distribuitonTextView.setText(transforListToString(movieModel.getDistribution()));
+      cinematographersTextView.setText(transforListToString(movieModel.getCinematographers()));
       productionTextView.setText(movieModel.getProduction());
       imdbVotesTextView.setText(movieModel.getImdbVotes());
       imdbRatingsTextView.setText(movieModel.getImdbRating());
       boxOfficeTextView.setText(movieModel.getBoxOffice());
-//      writtersTextView.setText(movieModel.getWriters().toString());
+      writtersTextView.setText(transforListToString(movieModel.getWriters()));
       plotTextView.setText(movieModel.getPlot());
+      countryTextView.setText(transforListToString(movieModel.getCountries()));
+      genreTextView.setText(movieModel.getGenre());
     }
   }
 
@@ -182,6 +183,18 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     currentMovieTitle = (String) event.getArgument1();
     currentButton = (String) event.getArgument2();
     this.loadMovieDetails();
+  }
+
+  private String transforListToString(List<String> strings) {
+    if(strings == null || strings.isEmpty())
+      return "";
+
+    String finalString = strings.get(0);
+    for(int i = 1; i < strings.size()-1;i++)
+      finalString += (", " + strings.get(i));
+    if(strings.size() >= 2)
+      finalString += (", " + strings.get(strings.size()-1));
+    return finalString;
   }
 
 

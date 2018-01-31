@@ -150,12 +150,12 @@ class MovieModel {
         this.imdbVotes = imdbVotes;
     }
 
-    public String getRuntime() {
-        return Runtime;
+    public List<String> getRuntimes() {
+        return transformStringToList(Runtime);
     }
 
-    public void setRuntime(String runtime) {
-        Runtime = runtime;
+    public void setRuntimes(List<String> runtime) {
+        Runtime = transformListToString(runtime);
     }
 
     public String getResponse() {
@@ -182,12 +182,12 @@ class MovieModel {
         this.imdbID = imdbID;
     }
 
-    public String getCountry() {
-        return Country;
+    List<String> getCountries() {
+        return transformStringToList(Country);
     }
 
-    public void setCountry(String country) {
-        Country = country;
+    void setCountries(List<String> countries) {
+        Country = transformListToString(countries);
     }
 
     public String getBoxOffice() {

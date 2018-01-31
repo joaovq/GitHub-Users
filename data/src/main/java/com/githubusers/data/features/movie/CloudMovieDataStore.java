@@ -15,8 +15,6 @@
  */
 package com.githubusers.data.features.movie;
 
-import android.util.Log;
-
 import com.birbit.android.jobqueue.JobManager;
 import com.githubusers.data.features.user.UserDataStore;
 import com.githubusers.data.utils.network.NetworkInfoUtils;
@@ -40,7 +38,7 @@ public class CloudMovieDataStore implements MovieDataStore {
 
   private final OMDbServiceImpl   omdbService;
   private final MovieOkHttp       movieOkHttp;
-  private final WebExtractor      webExtractor;
+  private final MovieWebExtractor movieWebExtractor;
   private final NetworkInfoUtils  networkInfoUtils;
   private final JobManager        jobManager;
   private final MovieJoiner       movieJoiner;
@@ -52,10 +50,10 @@ public class CloudMovieDataStore implements MovieDataStore {
   @Inject
   public CloudMovieDataStore(OMDbServiceImpl omdbService,
                              MovieOkHttp movieOkHttp,
-                             WebExtractor webExtractor, JobManager jobManager,
+                             MovieWebExtractor movieWebExtractor, JobManager jobManager,
                              NetworkInfoUtils networkInfoUtils, MovieJoiner movieJoiner) {
     this.omdbService = omdbService;
-    this.webExtractor = webExtractor;
+    this.movieWebExtractor = movieWebExtractor;
     this.networkInfoUtils = networkInfoUtils;
     this.jobManager = jobManager;
     this.movieOkHttp = movieOkHttp;
@@ -94,7 +92,7 @@ public class CloudMovieDataStore implements MovieDataStore {
   public Observable<MovieEntity> movieEntityDetailsFromWebsite(String title) {
     this.title = title;
     if (networkInfoUtils.isConnected())
-      return webExtractor.getMovie(title, new MovieEntity());
+      return movieWebExtractor.getMovie(title, new MovieEntity());
     else {
       movieEntityDetailsJobQueue();
       return Observable.empty();
@@ -108,7 +106,8 @@ public class CloudMovieDataStore implements MovieDataStore {
       return Observable.create(emitter -> {
         omdbService.getMovie(title).subscribe(movieFromOMDb -> {
           movieOkHttp.getMovie(title, movieFromOMDb).subscribe(movieFromLOD -> {
-            webExtractor.getMovie(title,movieFromOMDb).subscribe(movieFromWeb -> {MovieEntity finalMovieEntity = movieJoiner.execute(Arrays.asList(movieFromOMDb,movieFromLOD,movieFromWeb));
+            movieWebExtractor.getMovie(title,movieFromOMDb).subscribe(movieFromWeb -> {
+              MovieEntity finalMovieEntity = movieJoiner.execute(Arrays.asList(movieFromWeb,movieFromOMDb,movieFromLOD));
               emitter.onNext(finalMovieEntity);
               emitter.onComplete();
             });

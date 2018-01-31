@@ -6,7 +6,7 @@ package com.githubusers.data.features.movie;
 class StringMatching {
     static int editDistance(CharSequence string1, CharSequence string2) {
         if (string1 == null || string2 == null) {
-            throw new IllegalArgumentException("Strings must not be null");
+            return 10000;
         }
 
         int string1Length = string1.length(); // length of s

@@ -8,6 +8,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -15,8 +17,8 @@ import io.reactivex.Observable;
 /**
  * Extrator de dados de páginas web
  */
-public class WebExtractor {
-    private final String TAG = WebExtractor.class.getCanonicalName();
+public class MovieWebExtractor {
+    private final String TAG = MovieWebExtractor.class.getCanonicalName();
     private Integer trialNumber = 0;
 
 
@@ -64,10 +66,19 @@ public class WebExtractor {
                             movieEntity.setDistribution(getTextsByTag(column,"td"));
                         else if(columnText.contains("Release date"))
                             movieEntity.setReleased(getTextByTag(column,"td"));
-                        else if(columnText.contains("Running time"))
-                            movieEntity.setRuntime(getTextByTag(column,"td"));
-                        else if(columnText.contains("Country"))
-                            movieEntity.setCountry(getTextByTag(column,"td"));
+                        else if(columnText.contains("Running time")) {
+                            List<String> runningTimes = getTextsByTag(column,"li");
+                            if(!runningTimes.isEmpty())
+                                movieEntity.setRuntimes(runningTimes);
+                            else
+                                movieEntity.setRuntimes(Collections.singletonList(getTextByTag(column, "td")));
+                        } else if(columnText.contains("Country")) {
+                            List<String> countries = getTextsByTag(column,"li");
+                            if(!countries.isEmpty())
+                                movieEntity.setCountries(countries);
+                            else
+                                movieEntity.setCountry(getTextByTag(column, "td"));
+                        }
                         else if(columnText.contains("Language"))
                             movieEntity.setLanguage(getTextByTag(column,"td"));
                         else if(columnText.contains("Budget"))
@@ -133,6 +144,7 @@ public class WebExtractor {
         Elements subColumns = column.getElementsByTag(tag);
         for (Element subColumn : subColumns) {
             String text = Jsoup.parse(subColumn.html()).text();
+            text = text.replaceAll("\\[([0-9]+)\\]","");
             texts.add(text);
         }
         return texts;

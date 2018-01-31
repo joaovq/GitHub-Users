@@ -49,7 +49,7 @@ public class MovieModelMapper {
         movieModel.setTitle(movie.getTitle());
         movieModel.setYear(movie.getYear());
         movieModel.setReleased(movie.getReleased());
-        movieModel.setRuntime(movie.getRuntime());
+        movieModel.setRuntimes(movie.getRuntimes());
         movieModel.setAwards(movie.getAwards());
         movieModel.setWebsite(movie.getWebsite());
         movieModel.setBudget(movie.getBudget());
@@ -63,7 +63,7 @@ public class MovieModelMapper {
         movieModel.setImdbVotes(movie.getImdbVotes());
         movieModel.setImdbRating(movie.getImdbRating());
         movieModel.setPoster(movie.getPoster());
-        movieModel.setCountry(movie.getCountry());
+        movieModel.setCountries(movie.getCountries());
         movieModel.setBoxOffice(movie.getBoxOffice());
         movieModel.setActors(movie.getActors());
         movieModel.setPlot(movie.getPlot());

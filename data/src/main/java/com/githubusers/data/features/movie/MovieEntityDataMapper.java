@@ -42,7 +42,7 @@ public class MovieEntityDataMapper {
       movie.setTitle(movieEntity.getTitle());
       movie.setYear(movieEntity.getYear());
       movie.setReleased(movieEntity.getReleased());
-      movie.setRuntime(movieEntity.getRuntime());
+      movie.setRuntimes(movieEntity.getRuntimes());
       movie.setAwards(movieEntity.getAwards());
       movie.setWebsite(movieEntity.getWebsite());
       movie.setBudget(movieEntity.getBudget());
@@ -56,7 +56,6 @@ public class MovieEntityDataMapper {
       movie.setImdbVotes(movieEntity.getImdbVotes());
       movie.setImdbRating(movieEntity.getImdbRating());
       movie.setPoster(movieEntity.getPoster());
-      movie.setCountry(movieEntity.getCountry());
       movie.setBoxOffice(movieEntity.getBoxOffice());
       movie.setActors(movieEntity.getActors());
       movie.setPlot(movieEntity.getPlot());
@@ -65,7 +64,6 @@ public class MovieEntityDataMapper {
       movie.setGenre(movieEntity.getGenre());
       movie.setYear(movieEntity.getYear());
       movie.setReleased(movieEntity.getReleased());
-      movie.setRuntime(movieEntity.getRuntime());
       movie.setAwards(movieEntity.getAwards());
       movie.setWebsite(movieEntity.getWebsite());
       movie.setBudget(movieEntity.getBudget());
@@ -79,7 +77,7 @@ public class MovieEntityDataMapper {
       movie.setImdbVotes(movieEntity.getImdbVotes());
       movie.setImdbRating(movieEntity.getImdbRating());
       movie.setPoster(movieEntity.getPoster());
-      movie.setCountry(movieEntity.getCountry());
+      movie.setCountries(movieEntity.getCountries());
       movie.setBoxOffice(movieEntity.getBoxOffice());
       movie.setActors(movieEntity.getActors());
       movie.setPlot(movieEntity.getPlot());
