@@ -136,7 +136,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
       budgetTextView.setText(movieModel.getBudget());
       distribuitonTextView.setText(transforListToString(movieModel.getDistribution()));
       cinematographersTextView.setText(transforListToString(movieModel.getCinematographers()));
-      productionTextView.setText(movieModel.getProduction());
+      productionTextView.setText(transforListToString(movieModel.getProduction()));
       imdbVotesTextView.setText(movieModel.getImdbVotes());
       imdbRatingsTextView.setText(movieModel.getImdbRating());
       boxOfficeTextView.setText(movieModel.getBoxOffice());

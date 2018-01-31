@@ -271,12 +271,12 @@ class MovieModel {
 
     }
 
-    public String getProduction() {
-        return Production;
+    public List<String> getProduction() {
+        return transformStringToList(Production);
     }
 
-    public void setProduction(String production) {
-        Production = production;
+    public void setProduction(List<String> production) {
+        Production = transformListToString(production);
     }
 
     public String getGenre() {

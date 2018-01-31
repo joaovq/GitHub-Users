@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
 
 /**
  * Class to execute the movie data
@@ -129,8 +130,8 @@ public class MovieJoiner {
             addAttribute("metascore",movieEntity.getMetascore());
             addAttribute("imdbrating",movieEntity.getImdbRating());
             addAttribute("imdbvotes",movieEntity.getImdbVotes());
-            addAttribute("production", movieEntity.getProduction());
 
+            addAttributes("production", movieEntity.getProduction());
             addAttributes("countries", movieEntity.getCountries());
             addAttributes("runtimes", movieEntity.getRuntimes());
             addAttributes("writters", movieEntity.getWriters());
@@ -160,7 +161,7 @@ public class MovieJoiner {
                     finalMovieEntity.setYear(selectedAttributes.get(attributeIndex));
                     break;
                 case "production":
-                    finalMovieEntity.setProduction(selectedAttributes.get(attributeIndex));
+                    finalMovieEntity.setProduction(selectedAttributes);
                     break;
                 case "genre":
                     finalMovieEntity.setGenre(selectedAttributes.get(attributeIndex));
@@ -193,13 +194,13 @@ public class MovieJoiner {
                     finalMovieEntity.setRuntimes(selectedAttributes);
                     break;
                 case "countries":
-                    selectedAttributes.removeIf(selectedAttribute -> {
-                        for(String country : countriesISO3.keySet()) {
+                    List<String> abbreviations = new ArrayList<>();
+                    for(String selectedAttribute : selectedAttributes) {
+                        for(String country : countriesISO3.keySet())
                             if(StringMatching.editDistance(selectedAttribute,countriesISO3.get(country)) <= 1)
-                                return true;
-                        }
-                        return false;
-                    });
+                                abbreviations.add(selectedAttribute);
+                    }
+                    selectedAttributes.removeAll(abbreviations);
                     finalMovieEntity.setCountries(selectedAttributes);
                     break;
                 case "boxoffice":

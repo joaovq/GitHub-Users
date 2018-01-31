@@ -60,8 +60,13 @@ public class MovieWebExtractor {
                             movieEntity.setCinematographers(getTextsByTag(column,"td"));
                         else if(columnText.contains("Edited By"))
                             movieEntity.setEditors(getTextsByTag(column,"li"));
-                        else if(columnText.contains("Production company"))
-                            movieEntity.setProduction(getTextByTag(column,"td"));
+                        else if(columnText.contains("Production company")) {
+                            List<String> production = getTextsByTag(column,"li");
+                            if(!production.isEmpty())
+                                movieEntity.setProduction(production);
+                            else
+                                movieEntity.setProduction(getTextByTag(column, "td"));
+                        }
                         else if(columnText.contains("Distributed by"))
                             movieEntity.setDistribution(getTextsByTag(column,"td"));
                         else if(columnText.contains("Release date"))

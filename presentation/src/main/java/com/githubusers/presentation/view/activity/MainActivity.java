@@ -63,10 +63,10 @@ public class MainActivity extends BaseActivity implements Validator.ValidationLi
     validator.validate();
   }
 
-  @OnClick(R.id.btn_history)
-  public void onHistoryButtonClicked() {
-    this.navigator.navigateToUserList(this);
-  }
+//  @OnClick(R.id.btn_history)
+//  public void onHistoryButtonClicked() {
+//    this.navigator.navigateToUserList(this);
+//  }
 
   /**
    * Clear all edit texts
